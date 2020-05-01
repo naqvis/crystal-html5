@@ -1,0 +1,16 @@
+name: html5
+version: 0.1.0
+
+authors:
+  - Ali Naqvi <syed.alinaqvi@gmail.com>
+description: |
+  HTML5-compliant Parser and Tokenizer with XPath2 support.
+
+crystal: 0.34.0
+
+dependencies:
+  xpath2:
+    github: naqvis/crystal-xpath2
+    version: ~> 0.1
+
+license: MIT
