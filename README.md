@@ -30,7 +30,7 @@ or an IO instance. If the fragment is the InnerHTML for an existing element, pas
 
    ```yaml
    dependencies:
-     html:
+     html5:
        github: naqvis/crystal-html5
    ```
 
