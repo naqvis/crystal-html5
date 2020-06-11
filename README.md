@@ -42,7 +42,7 @@ or an IO instance. If the fragment is the InnerHTML for an existing element, pas
 ```crystal
 require "html5"
 
-html = <<-HTML
+html = <<-HTML5
 <!DOCTYPE html><html lang="en-US">
 <head>
 <title>Hello,World!</title>
@@ -166,7 +166,7 @@ list = html.xpath_nodes("//a/@href")
 list.each {|a| pp a.inner_text}
 
 # Find the second `a` element
-a = html.xpath("//a[3]")
+a = html.xpath("//a[2]")
 
 # Count the number of all a elements.
 v = html.xpath_float("//a")
