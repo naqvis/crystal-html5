@@ -8,6 +8,8 @@ The relevant specifications include:
 - [https://html.spec.whatwg.org/multipage/syntax.html](https://html.spec.whatwg.org/multipage/syntax.html)
 - [https://html.spec.whatwg.org/multipage/syntax.html#tokenization](https://html.spec.whatwg.org/multipage/syntax.html#tokenization)
 
+Shard also provides **CSS Selector support** by implementing **W3** [Selectors Level 3](http://www.w3.org/TR/css3-selectors/) specification
+
 Tokenization is done by creating a `Tokenizer` for an `IO`. It is the caller
 responsibility to ensure that provided IO provides UTF-8 encoded HTML.
 The tokenization algorithm implemented by this shard is not a line-by-line
@@ -23,6 +25,8 @@ or an IO instance. `HTML5.parse` returns a document root as `HTML5::Node` instan
 Parsing a fragment is done by calling `HTML5.parse_fragment` with either a String containing fragment of HTML5
 or an IO instance. If the fragment is the InnerHTML for an existing element, pass that element in context.
 `HTML5.parse_fragment` returns a list of `HTML5::Node` that were found.
+
+
 
 ## Installation
 
@@ -173,6 +177,68 @@ v = html.xpath_float("//a")
 ```
 
 Refer to specs for more sample usages. And refer to [Crystal XPath2 Shard](https://github.com/naqvis/crystal-xpath2) for details of what functions and functionality is supported by XPath implementation.
+
+### Example 4: CSS Selector
+```crystal
+html = <<-HTML
+  <html>
+    <body>
+      <table id="t1">
+        <tr><td>Hello</td></tr>
+      </table>
+      <table id="t2">
+        <tr><td>123</td><td>other</td></tr>
+        <tr><td>foo</td><td>columns</td></tr>
+        <tr><td>bar</td><td>are</td></tr>
+        <tr><td>xyz</td><td>ignored</td></tr>
+      </table>
+    </body>
+  </html>
+HTML
+
+node = HTML5.parse(html)
+p node.css("#t2 tr td:first-child").map(&.inner_text).to_a    # => ["123", "foo", "bar", "xyz"]
+p node.css("#t2 tr td:first-child").map(&.to_html(true)).to_a # => "<td>123</td>", "<td>foo</td>", "<td>bar</td>", "<td>xyz</td>"]
+
+html = <<-HTML
+<p>
+  <h2 id="foo">a header</h2>
+  <h2 id="bar">another header</h2>
+</p>
+HTML
+node = HTML5.parse(html)
+p node.css("h2#foo").map(&.to_html(true)).to_a # => ["<h2 id=\"foo\">a header</h2>"]
+
+html = <<-HTML
+  <div>
+    <p id=p1>
+    <p id=p2 class=jo>
+    <p id=p3>
+      <a href="some.html" id=a1>link1</a>
+      <a href="some.png" id=a2>link2</a>
+    <div id=bla>
+      <p id=p4 class=jo>
+      <p id=p5 class=bu>
+      <p id=p6 class=jo>
+    </div>
+  </div>
+HTML
+
+node = HTML5.parse(html)
+# select all p nodes which id like `*p*`
+p node.css("p[id*=p]").map(&.["id"].val).to_a # => ["p1", "p2", "p3", "p4", "p5", "p6"]
+
+# select all nodes with class "jo"
+p node.css("p.jo").map(&.["id"].val).to_a # => ["p2", "p4", "p6"]
+p node.css(".jo").map(&.["id"].val).to_a  # => ["p2", "p4", "p6"]
+
+# a element with href ends like .png
+p node.css(%q{a[href$=".png"]}).map(&.["id"].val).to_a # => ["a2"]
+
+# find all a tags inside <p id=p3>, which href contain `html`
+p node.css(%q{p[id=p3] > a[href*="html"]}).map(&.["id"].val).to_a # => ["a1"]
+```
+Refer to `spec/css` specs for more sample usages.
 
 ## Development
 

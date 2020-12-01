@@ -1,12 +1,12 @@
 name: html5
-version: 0.1.1
+version: 0.2.0
 
 authors:
   - Ali Naqvi <syed.alinaqvi@gmail.com>
 description: |
-  HTML5-compliant Parser and Tokenizer with XPath2 support.
+  HTML5-compliant Parser and Tokenizer with XPath2 and CSS Selector support.
 
-crystal: 0.35.0
+crystal: 0.35.1
 
 dependencies:
   xpath2:
