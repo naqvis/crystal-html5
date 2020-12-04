@@ -78,7 +78,7 @@ module CSS
           combination = false
           sel.combs << CombinatorSelector.new(t.type, compile_simple_selector_seq)
         when .eof?, .comma?
-          return sel
+          return sel.as(Select)
         else
           raise CSSException.new("Unhandled compiler selector #{t.type}")
         end

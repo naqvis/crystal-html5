@@ -520,7 +520,6 @@ module HTML5
           end
         end
         parse_current_token
-        # pp "token: #{token}, type: #{token.type}, data: #{token.data}, oe.size: #{oe.size}, afe.size: #{afe.size}"
         break if (token.type == TokenType::Error && tokenizer.eof?)
       end
       nil

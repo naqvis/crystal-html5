@@ -12,7 +12,7 @@ end
 
 module CSS
   class Selector
-    def initialize(@selector_group = Array(SelectorImpl).new)
+    def initialize(@selector_group = Array(Select).new)
     end
 
     def select(n : HTML5::Node) : Array(HTML5::Node)
@@ -24,7 +24,12 @@ module CSS
     end
   end
 
+  private module Select
+    abstract def select(n : HTML5::Node) : Array(HTML5::Node)
+  end
+
   private class SelectorImpl
+    include Select
     getter combs : Array(CombinatorSelector)
 
     def initialize(@sel_seq : SelectorSequence, @combs = Array(CombinatorSelector).new)
@@ -60,6 +65,7 @@ module CSS
 
   private record SelectorSequence, matchers : Array(Matcher) do
     include Matcher
+    include Select
 
     def initialize(@matchers = Array(Matcher).new)
     end
@@ -84,6 +90,8 @@ module CSS
   end
 
   private class CombinatorSelector
+    include Select
+
     def initialize(@combinator : TokenType, @sel_seq : SelectorSequence)
     end
 
@@ -163,7 +171,7 @@ module CSS
     def matches(n : HTML5::Node) : Bool
       n.attr.each do |a|
         if a.key == @key
-          return a.val == @val
+          return a.val.split(' ').includes?(@val)
         end
       end
       false

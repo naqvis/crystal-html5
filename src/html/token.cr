@@ -227,8 +227,7 @@ module HTML5
         if 2*d > c
           buf1 = Bytes.new(2*c)
         else
-          buf1 = @buf[...d]
-          buf1 = Bytes.new(4096) if buf1.size == 0
+          buf1 = Bytes.new(c)
         end
         buf1.copy_from(@buf[@raw.start...@raw.end].to_unsafe, buf1.size) if @buf.size > 0
         if (x = @raw.start) && (x != 0)
