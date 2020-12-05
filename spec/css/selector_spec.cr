@@ -34,6 +34,7 @@ module CSS
     want = [
       "<p>foo</p>",
       "<span><p>bar</p></span>",
+      "<p>bar</p>",
     ]
 
     selector = SelectorImpl.new(
@@ -63,30 +64,13 @@ HTML
       # non-standard HTML
       {"<p><foobar></foobar></p>", ["<foobar></foobar>"], [TypeSelector.new("foobar").as(Matcher)]},
       {"<p><a id=\"foo\"></a><a></a></p>", ["<a id=\"foo\"></a>"], [TypeSelector.new("a").as(Matcher),
-                                                                    MatcherFunc.new(->first_child(HTML5::Node))]},
+                                                                    NthChildPseudo.new(0, 1).as(Matcher)]},
       {html, ["<div class=\"box\"><!-- I will be selected --></div>"], [AttrMatcher.new("class", "box").as(Matcher),
                                                                         MatcherFunc.new(->empty(HTML5::Node))]},
     ]
 
     tests.each_with_index do |t, i|
       run_test(i, t[0], SelectorSequence.new(t[2]), t[1])
-    end
-  end
-
-  it "Test Post Matches" do
-    tests = [
-      {2, 4, 3, true},
-      {2, 4, 5, true},
-      {2, 4, 13, true},
-      {-2, 7, 0, true},
-      {-2, 7, 6, true},
-      {-2, 7, 7, false},
-      {0, 7, 6, true},
-    ]
-
-    tests.each_with_index do |t, i|
-      got = post_matches(t[0], t[1], t[2])
-      fail "case=#{i} (a=#{t[0]}, b=#{t[1]}, pos=#{t[2]}): want=#{t[3]}, got=#{got}" unless got == t[3]
     end
   end
 end

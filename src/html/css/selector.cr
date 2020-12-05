@@ -18,14 +18,14 @@ module CSS
     def select(n : HTML5::Node) : Array(HTML5::Node)
       matched = [] of HTML5::Node
       @selector_group.each do |sel|
-        matched += sel.select(n)
+        matched = sel.select(n, matched)
       end
       matched
     end
   end
 
   private module Select
-    abstract def select(n : HTML5::Node) : Array(HTML5::Node)
+    abstract def select(n : HTML5::Node, selected = [] of HTML5::Node) : Array(HTML5::Node)
   end
 
   private class SelectorImpl
@@ -35,12 +35,12 @@ module CSS
     def initialize(@sel_seq : SelectorSequence, @combs = Array(CombinatorSelector).new)
     end
 
-    def select(n : HTML5::Node) : Array(HTML5::Node)
-      matched = @sel_seq.select(n)
+    def select(n : HTML5::Node, matched = [] of HTML5::Node) : Array(HTML5::Node)
+      matched = @sel_seq.select(n, matched)
       @combs.each do |comb|
         comb_matched = [] of HTML5::Node
         matched.each do |m|
-          comb_matched += comb.select(m)
+          comb_matched = comb.select(m, comb_matched)
         end
         matched = comb_matched
       end
@@ -66,11 +66,23 @@ module CSS
   private record SelectorSequence, matchers : Array(Matcher) do
     include Matcher
     include Select
+    getter matchers : Array(Matcher)
 
     def initialize(@matchers = Array(Matcher).new)
     end
 
-    def select(n : HTML5::Node) : Array(HTML5::Node)
+    def select(n : HTML5::Node, selected = [] of HTML5::Node) : Array(HTML5::Node)
+      selected << n if matches(n) && !selected.includes?(n)
+      c = n.first_child
+      while (c)
+        selected << c if matches(c)
+        selected = self.select(c, selected)
+        c = c.next_sibling
+      end
+      selected
+    end
+
+    def select1(n : HTML5::Node) : Array(HTML5::Node)
       return [n] if matches(n)
       selected = [] of HTML5::Node
       c = n.first_child
@@ -95,19 +107,18 @@ module CSS
     def initialize(@combinator : TokenType, @sel_seq : SelectorSequence)
     end
 
-    def select(n : HTML5::Node) : Array(HTML5::Node)
-      matched = [] of HTML5::Node
+    def select(n : HTML5::Node, matched = [] of HTML5::Node) : Array(HTML5::Node)
       case @combinator
       when .greater?
         child = n.first_child
         while (child)
-          matched << child if @sel_seq.matches(child)
+          matched << child if @sel_seq.matches(child) && !child.parent.nil?
           child = child.next_sibling
         end
       when .tilde?
         sibl = n.next_sibling
         while (sibl)
-          matched << sibl if @sel_seq.matches(sibl)
+          matched << sibl if @sel_seq.matches(sibl) && !matched.includes?(sibl)
           sibl = sibl.next_sibling
         end
       when .plus?
@@ -115,13 +126,15 @@ module CSS
         while (sibl)
           matched << sibl if @sel_seq.matches(sibl)
           # check matches against only the first element
-          break if sibl.type == HTML5::NodeType::Element
+          break if sibl.element?
           sibl = sibl.next_sibling
         end
+      when .not?
+        matched << n if !@sel_seq.matches(n)
       else
         child = n.first_child
         while (child)
-          matched += @sel_seq.select(child)
+          matched = @sel_seq.select(child, matched)
           child = child.next_sibling
         end
       end
@@ -133,7 +146,7 @@ module CSS
     include Matcher
 
     def matches(n : HTML5::Node) : Bool
-      true
+      n.element?
     end
   end
 
@@ -144,7 +157,7 @@ module CSS
     end
 
     def matches(n : HTML5::Node) : Bool
-      n.type == HTML5::NodeType::Element && n.data == @ele
+      n.element? && n.data == @ele
     end
   end
 
@@ -205,6 +218,120 @@ module CSS
     end
   end
 
+  private class NthChildPseudo
+    include Matcher
+
+    def initialize(@a : Int32, @b : Int32, @last = false, @oftype = false)
+    end
+
+    def matches(n : HTML5::Node) : Bool
+      if @a == 0
+        if @last
+          last_child_match(n)
+        else
+          nth_child_match(n)
+        end
+      else
+        child_match(n)
+      end
+    end
+
+    def nth_child_match(n : HTML5::Node) : Bool
+      return false unless n.element?
+      parent = n.parent
+      return false if parent.nil?
+      return false if parent.document?
+      count = 0
+      c = parent.first_child
+      while (c)
+        if !c.element? || (@oftype && c.data != n.data)
+          c = c.next_sibling
+          next
+        end
+        count += 1
+        return (count == @b) if c == n
+        return false if count >= @b
+        c = c.next_sibling
+      end
+      false
+    end
+
+    def last_child_match(n : HTML5::Node) : Bool
+      return false unless n.element?
+      parent = n.parent
+      return false if parent.nil?
+      return false if parent.document?
+      count = 0
+      c = parent.last_child
+      while (c)
+        if !c.element? || (@oftype && c.data != n.data)
+          c = c.prev_sibling
+          next
+        end
+        count += 1
+        return (count == @b) if c == n
+        return false if count >= @b
+        c = c.prev_sibling
+      end
+      false
+    end
+
+    def child_match(n : HTML5::Node) : Bool
+      return false unless n.element?
+      parent = n.parent
+      return false if parent.nil?
+      return false if parent.document?
+      i = -1
+      count = 0
+      c = parent.first_child
+      while (c)
+        if !c.element? || (@oftype && c.data != n.data)
+          c = c.next_sibling
+          next
+        end
+        count += 1
+        if c == n
+          i = count
+          break unless @last
+        end
+        c = c.next_sibling
+      end
+
+      # This shouldn't happen, since n should always be one of its parent's children
+      return false if i == -1
+      i = count - i + 1 if @last
+      i -= @b
+      return i == 0 if @a == 0
+      (i % @a == 0) && (i // @a >= 0)
+    end
+  end
+
+  private class OnlyChildPseudo
+    include Matcher
+
+    def initialize(@oftype = false)
+    end
+
+    def matches(n : HTML5::Node) : Bool
+      return false unless n.element?
+      parent = n.parent
+      return false if parent.nil?
+      return false if parent.document?
+      count = 0
+      c = parent.first_child
+      while (c)
+        if !c.element? || (@oftype && c.data != n.data)
+          c = c.next_sibling
+          next
+        end
+        count += 1
+        return false if count > 1
+        c = c.next_sibling
+      end
+      count == 1
+    end
+  end
+
   protected def self.includes_matcher(got : String, want : String)
     got.split(' ').each do |s|
       next if s.empty?
@@ -214,94 +341,31 @@ module CSS
   end
 
   protected def self.dash_matcher(got : String, want : String)
-    got.split('-').each do |s|
+    got.split(' ').each do |s|
       next if s.empty?
-      return true if s == want
+      return true if s == want || s.starts_with?("#{want}-")
     end
     false
   end
 
   protected def self.empty(n : HTML5::Node) : Bool
+    return false unless n.element?
     c = n.first_child
     while (c)
-      return false unless c.comment?
+      return false if c.element? || c.text?
       c = c.next_sibling
     end
     true
   end
 
-  protected def self.first_child(n : HTML5::Node) : Bool
-    return false unless n.element?
-    s = n.prev_sibling
-    while (s)
-      return false if s.element?
-      s = s.prev_sibling
-    end
-    true
-  end
-
-  protected def self.first_of_type(n : HTML5::Node) : Bool
-    return false unless n.element?
-    s = n.prev_sibling
-    while (s)
-      return false if s.element? && s.data == n.data
-      s = s.prev_sibling
-    end
-    true
-  end
-
-  protected def self.last_child(n : HTML5::Node) : Bool
-    return false unless n.element?
-    s = n.next_sibling
-    while (s)
-      return false if s.element?
-      s = s.next_sibling
-    end
-    true
-  end
-
-  protected def self.last_of_type(n : HTML5::Node) : Bool
-    return false unless n.element?
-    s = n.next_sibling
-    while (s)
-      return false if s.element? && s.data == n.data
-      s = s.next_sibling
-    end
-    true
-  end
-
-  protected def self.only_child(n : HTML5::Node) : Bool
-    first_child(n) && last_child(n)
-  end
-
-  protected def self.only_of_type(n : HTML5::Node) : Bool
-    first_of_type(n) && last_of_type(n)
-  end
-
   protected def self.root(n : HTML5::Node) : Bool
-    n.parent.nil?
+    return false unless n.element?
+    parent = n.parent
+    return false if parent.nil?
+    parent.document?
   end
 
-  private class NthChild
-    include Matcher
-
-    def initialize(@a : Int32, @b : Int32)
-    end
-
-    def matches(n : HTML5::Node) : Bool
-      pos = 0
-      s = n.prev_sibling
-      while (s)
-        pos += 1 if s.element?
-        s = s.prev_sibling
-      end
-
-      CSS.post_matches(@a, @b, pos)
-    end
-  end
-
-  protected def self.post_matches(a, b, pos)
-    n = (pos - b + 1)
-    (a == 0 && n == 0) || (n % a == 0 && n//a >= 0)
+  protected def self.input(n : HTML5::Node) : Bool
+    n.element? && ["input", "select", "textarea", "button"].includes?(n.data)
   end
 end

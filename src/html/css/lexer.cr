@@ -26,6 +26,7 @@ module CSS
     Sub           # -
     Greater       # >
     Tilde         # ~
+    Comment       # /* comments */
     Error
     EOF
 
@@ -132,7 +133,9 @@ module CSS
 
     def emit(t : TokenType)
       raise CSSException.new("nothing to emit at pos #{@pos}") if @last == @pos
-      @c.send(Token.new(t, @s[@last...@pos], @last))
+      val = @s[@last...@pos]
+      val = "-1n" if t == TokenType::Dimension && val == "-n"
+      @c.send(Token.new(t, val, @last))
       @last = @pos
     end
 
@@ -157,11 +160,12 @@ module CSS
           when EOF
             self.eof
             break
-          when .ascii_number?, '.'   then parse_num_or_dot
-          when .in_set?(" \t\r\n\f") then parse_space
-          when '\'', '"'             then parse_string
-          when '#'                   then parse_hash
-          when ':'                   then parse_colon
+          when .ascii_number?, '.', '-' then parse_num_or_dot
+          when .in_set?(" \t\r\n\f")    then parse_space
+          when '\'', '"'                then parse_string
+          when '#'                      then parse_hash
+          when ':'                      then parse_colon
+          when '/'                      then parse_comment
           else
             if MatchChar.has_key?(r)
               type = MatchChar[r]
@@ -234,7 +238,7 @@ module CSS
 
     def parse_num_or_dot
       r = self.next
-      raise CSSException.new("expected '.' or 0-9 before calling parse_num_or_dot") unless r == '.' || r.ascii_number?
+      raise CSSException.new("expected '.','-' or 0-9 before calling parse_num_or_dot") unless r == '.' || r == '-' || r.ascii_number?
 
       seen_dot = r == '.'
       if seen_dot
@@ -315,6 +319,16 @@ module CSS
         end
         first_char = false
       end
+    end
+
+    def parse_comment
+      raise CSSException.new("expected '*' before calling parse_comment") unless self.next == '/' && self.peek == '*'
+
+      while (c = self.next)
+        break if c == '*' && self.peek == '/'
+      end
+      self.next
+      emit(TokenType::Comment)
     end
 
     protected def non_ascii(c)

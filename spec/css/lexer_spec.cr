@@ -131,7 +131,7 @@ module CSS
         Token.new(TokenType::Ident, "p", 9), Token.new(TokenType::EOF, "", 10),
       ]},
       {"-2n-1", [
-        Token.new(TokenType::Sub, "-", 0), Token.new(TokenType::Dimension, "2n-1", 1), Token.new(TokenType::EOF, "", 5),
+        Token.new(TokenType::Dimension, "-2n-1", 0), Token.new(TokenType::EOF, "", 5),
       ]},
 
     ]
@@ -145,7 +145,7 @@ module CSS
         tokens << tok
         break if [TokenType::Error, TokenType::EOF].includes?(tok.type)
       end
-      fail "case=#{i}: wanted: #{t[1].size} tokens, got: #{tokens.size}" unless t[1].size == tokens.size
+      fail "case=#{i}:'#{t[0]}' wanted: #{t[1].size} tokens, got: #{tokens.size}" unless t[1].size == tokens.size
       tokens.should eq(t[1])
     end
   end
