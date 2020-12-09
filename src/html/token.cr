@@ -222,7 +222,8 @@ module HTML5
         # We copy buf[raw.start...raw.end] to the beginning of buf. If the size of
         # raw.end - raw.start is more than half the size of the buf, then we
         # allocate a new buffer before copy
-        c = 4096
+        c = @buf.size
+        c = 4096 if c == 0
         d = @raw.end - @raw.start
         if 2*d > c
           buf1 = Bytes.new(2*c)
