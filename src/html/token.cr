@@ -230,7 +230,7 @@ module HTML5
         else
           buf1 = Bytes.new(c)
         end
-        buf1.copy_from(@buf[@raw.start...@raw.end].to_unsafe, buf1.size) if @buf.size > 0
+        buf1.copy_from(@buf[@raw.start...@raw.end].to_unsafe, d) if @buf.size > 0
         if (x = @raw.start) && (x != 0)
           # Adjust the data/attr spans to refer to the same contents after copy.
           @data.start -= x
