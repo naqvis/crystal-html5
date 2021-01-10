@@ -1,5 +1,5 @@
 # Crystal-HTML5
-[![Build Status](https://travis-ci.org/naqvis/crystal-html5.svg?branch=master)](https://travis-ci.org/naqvis/crystal-html5)
+![CI](https://github.com/naqvis/crystal-html5/workflows/CI/badge.svg)
 [![GitHub release](https://img.shields.io/github/release/naqvis/crystal-html5.svg)](https://github.com/naqvis/crystal-html5/releases)
 [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://naqvis.github.io/crystal-html5/)
 

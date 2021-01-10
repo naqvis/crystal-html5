@@ -1,5 +1,5 @@
 require "spec"
-require "../src/html"
+require "../src/html5"
 
 module HTML5
   class TestAttrs
