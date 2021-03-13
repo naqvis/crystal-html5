@@ -339,7 +339,7 @@ module HTML5
         c = first_child
         while c
           c.render(io)
-          c = next_sibling
+          c = c.next_sibling
         end
       end
       io.to_s
