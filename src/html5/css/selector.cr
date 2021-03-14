@@ -177,14 +177,21 @@ module CSS
 
   private class AttrMatcher
     include Matcher
+    @values : Array(String)
 
     def initialize(@key : String, @val : String)
+      @values = @val.split(' ').reject(&.blank?)
     end
 
     def matches(n : HTML5::Node) : Bool
       n.attr.each do |a|
         if a.key == @key
-          return a.val.split(' ').includes?(@val)
+          attr_vals = a.val.split(' ').reject(&.blank?)
+          return false if attr_vals.empty? || @values.empty?
+          @values.each do |v|
+            return false unless attr_vals.includes?(v)
+          end
+          return true
         end
       end
       false

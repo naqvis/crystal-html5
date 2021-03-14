@@ -106,7 +106,7 @@ module CSS
           self.next
           tk = self.peek
           raise CSS.syntax_error(tk, TokenType::Ident).exception unless tk.type == TokenType::Ident
-          matchers = [AttrMatcher.new("class", tk.val).as(Matcher)]
+          matchers += [AttrMatcher.new("class", tk.val).as(Matcher)]
         when .hash?
           matchers += [AttrMatcher.new("id", t.val.lchop("#")).as(Matcher)]
         when .left_brace?
