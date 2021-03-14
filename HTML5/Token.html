@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="html5">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="html5">
+  <title>HTML5::Token - html5 master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          html5
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="html5/CSS" data-name="css">
+      <a href="../CSS.html">CSS</a>
+      
+        <ul>
+  
+  <li class=" " data-id="html5/CSS/CSSException" data-name="css::cssexception">
+      <a href="../CSS/CSSException.html">CSSException</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/Lexer" data-name="css::lexer">
+      <a href="../CSS/Lexer.html">Lexer</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/Selector" data-name="css::selector">
+      <a href="../CSS/Selector.html">Selector</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/SyntaxError" data-name="css::syntaxerror">
+      <a href="../CSS/SyntaxError.html">SyntaxError</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/TokenType" data-name="css::tokentype">
+      <a href="../CSS/TokenType.html">TokenType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="html5/HTML5" data-name="html5">
+      <a href="../HTML5.html">HTML5</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="html5/HTML5/Atom" data-name="html5::atom">
+      <a href="../HTML5/Atom.html">Atom</a>
+      
+        <ul>
+  
+  <li class=" " data-id="html5/HTML5/Atom/Atom" data-name="html5::atom::atom">
+      <a href="../HTML5/Atom/Atom.html">Atom</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Attribute" data-name="html5::attribute">
+      <a href="../HTML5/Attribute.html">Attribute</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/HTMLException" data-name="html5::htmlexception">
+      <a href="../HTML5/HTMLException.html">HTMLException</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/MaxBufferExceeded" data-name="html5::maxbufferexceeded">
+      <a href="../HTML5/MaxBufferExceeded.html">MaxBufferExceeded</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Node" data-name="html5::node">
+      <a href="../HTML5/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/NodeType" data-name="html5::nodetype">
+      <a href="../HTML5/NodeType.html">NodeType</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/NoProgressError" data-name="html5::noprogresserror">
+      <a href="../HTML5/NoProgressError.html">NoProgressError</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Span" data-name="html5::span">
+      <a href="../HTML5/Span.html">Span</a>
+      
+    </li>
+  
+  <li class=" current" data-id="html5/HTML5/Token" data-name="html5::token">
+      <a href="../HTML5/Token.html">Token</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/TokenType" data-name="html5::tokentype">
+      <a href="../HTML5/TokenType.html">TokenType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> HTML5::Token
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../HTML5/Token.html">HTML5::Token</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A Token consists of a TokenType and some data (tag name for start and end
+tags, content for text, comments and doctypes). A tag Token may also contain
+an array of Attributes. data is unescaped for all Tokens (it looks like "a&lt;b"
+rather than "a&lt;b"). For tag Tokens, data_atom is the atom for data, or
+zero if data is not a known tag name.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L26" target="_blank">
+        html5/token.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(type=TokenType::Error,data_atom=Atom::Atom.zero,data=&quot;&quot;,attr=Array(Attribute).new(0))-class-method" class="signature"><strong>.new</strong>(type = <span class="t">TokenType</span><span class="t">::</span><span class="t">Error</span>, data_atom = <span class="t">Atom</span><span class="t">::</span><span class="t">Atom</span>.zero, data = <span class="s">&quot;&quot;</span>, attr = <span class="t">Array</span>(<span class="t">Attribute</span>).<span class="k">new</span>(<span class="n">0</span>))</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#attr:Array(Attribute)-instance-method" class="signature"><strong>#attr</strong> : Array(Attribute)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#attr=(attr:Array(Attribute))-instance-method" class="signature"><strong>#attr=</strong>(attr : Array(Attribute))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#data:String-instance-method" class="signature"><strong>#data</strong> : String</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#data=(data:String)-instance-method" class="signature"><strong>#data=</strong>(data : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#data_atom:Atom::Atom-instance-method" class="signature"><strong>#data_atom</strong> : Atom::Atom</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#data_atom=(data_atom:Atom::Atom)-instance-method" class="signature"><strong>#data_atom=</strong>(data_atom : Atom::Atom)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tag_string-instance-method" class="signature"><strong>#tag_string</strong></a>
+        
+          <div class="summary"><p>returns a string representation of a tag Token's data and attr</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s(io:IO):Nil-instance-method" class="signature"><strong>#to_s</strong>(io : IO) : Nil</a>
+        
+          <div class="summary"><p>Appends a short String representation of this object which includes its class name and its object address.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><p>Returns a string representation of this object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type:TokenType-instance-method" class="signature"><strong>#type</strong> : TokenType</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#type=(type:TokenType)-instance-method" class="signature"><strong>#type=</strong>(type : TokenType)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(type=TokenType::Error,data_atom=Atom::Atom.zero,data=&quot;&quot;,attr=Array(Attribute).new(0))-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(type = <span class="t">TokenType</span><span class="t">::</span><span class="t">Error</span>, data_atom = <span class="t">Atom</span><span class="t">::</span><span class="t">Atom</span>.zero, data = <span class="s">&quot;&quot;</span>, attr = <span class="t">Array</span>(<span class="t">Attribute</span>).<span class="k">new</span>(<span class="n">0</span>))
+
+        <a class="method-permalink" href="#new(type=TokenType::Error,data_atom=Atom::Atom.zero,data=&quot;&quot;,attr=Array(Attribute).new(0))-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L32" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="attr:Array(Attribute)-instance-method">
+      <div class="signature">
+        
+        def <strong>attr</strong> : Array(<a href="../HTML5/Attribute.html">Attribute</a>)
+
+        <a class="method-permalink" href="#attr:Array(Attribute)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="attr=(attr:Array(Attribute))-instance-method">
+      <div class="signature">
+        
+        def <strong>attr=</strong>(attr : Array(<a href="../HTML5/Attribute.html">Attribute</a>))
+
+        <a class="method-permalink" href="#attr=(attr:Array(Attribute))-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="data:String-instance-method">
+      <div class="signature">
+        
+        def <strong>data</strong> : String
+
+        <a class="method-permalink" href="#data:String-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L29" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="data=(data:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>data=</strong>(data : String)
+
+        <a class="method-permalink" href="#data=(data:String)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L29" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="data_atom:Atom::Atom-instance-method">
+      <div class="signature">
+        
+        def <strong>data_atom</strong> : <a href="../HTML5/Atom/Atom.html">Atom::Atom</a>
+
+        <a class="method-permalink" href="#data_atom:Atom::Atom-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="data_atom=(data_atom:Atom::Atom)-instance-method">
+      <div class="signature">
+        
+        def <strong>data_atom=</strong>(data_atom : <a href="../HTML5/Atom/Atom.html">Atom::Atom</a>)
+
+        <a class="method-permalink" href="#data_atom=(data_atom:Atom::Atom)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tag_string-instance-method">
+      <div class="signature">
+        
+        def <strong>tag_string</strong>
+
+        <a class="method-permalink" href="#tag_string-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>returns a string representation of a tag Token's data and attr</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s(io:IO):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>(io : IO) : Nil
+
+        <a class="method-permalink" href="#to_s(io:IO):Nil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class Reference
+            </div>
+          
+          <p>Appends a short String representation of this object
+which includes its class name and its object address.</p>
+
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">Person</span>
+  <span class="k">def</span> <span class="m">initialize</span>(@name : <span class="t">String</span>, @age : <span class="t">Int32</span>)
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="t">Person</span>.<span class="k">new</span>(<span class="s">&quot;John&quot;</span>, <span class="n">32</span>).to_s <span class="c"># =&gt; #&lt;Person:0x10a199f20&gt;</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L71" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>
+
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from class Object
+            </div>
+          
+          <p>Returns a string representation of this object.</p>
+
+<p>Descendants must usually <strong>not</strong> override this method. Instead,
+they must override <code><a href="../HTML5/Token.html#to_s(io:IO):Nil-instance-method">#to_s(io)</a></code>, which must append to the given
+IO object.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L50" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type:TokenType-instance-method">
+      <div class="signature">
+        
+        def <strong>type</strong> : <a href="../HTML5/TokenType.html">TokenType</a>
+
+        <a class="method-permalink" href="#type:TokenType-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="type=(type:TokenType)-instance-method">
+      <div class="signature">
+        
+        def <strong>type=</strong>(type : <a href="../HTML5/TokenType.html">TokenType</a>)
+
+        <a class="method-permalink" href="#type=(type:TokenType)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/token.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="html5">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="html5">
+  <title>HTML5::Atom - html5 master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          html5
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="html5/CSS" data-name="css">
+      <a href="../CSS.html">CSS</a>
+      
+        <ul>
+  
+  <li class=" " data-id="html5/CSS/CSSException" data-name="css::cssexception">
+      <a href="../CSS/CSSException.html">CSSException</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/Lexer" data-name="css::lexer">
+      <a href="../CSS/Lexer.html">Lexer</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/Selector" data-name="css::selector">
+      <a href="../CSS/Selector.html">Selector</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/SyntaxError" data-name="css::syntaxerror">
+      <a href="../CSS/SyntaxError.html">SyntaxError</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/TokenType" data-name="css::tokentype">
+      <a href="../CSS/TokenType.html">TokenType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="html5/HTML5" data-name="html5">
+      <a href="../HTML5.html">HTML5</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="html5/HTML5/Atom" data-name="html5::atom">
+      <a href="../HTML5/Atom.html">Atom</a>
+      
+        <ul>
+  
+  <li class=" " data-id="html5/HTML5/Atom/Atom" data-name="html5::atom::atom">
+      <a href="../HTML5/Atom/Atom.html">Atom</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Attribute" data-name="html5::attribute">
+      <a href="../HTML5/Attribute.html">Attribute</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/HTMLException" data-name="html5::htmlexception">
+      <a href="../HTML5/HTMLException.html">HTMLException</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/MaxBufferExceeded" data-name="html5::maxbufferexceeded">
+      <a href="../HTML5/MaxBufferExceeded.html">MaxBufferExceeded</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Node" data-name="html5::node">
+      <a href="../HTML5/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/NodeType" data-name="html5::nodetype">
+      <a href="../HTML5/NodeType.html">NodeType</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/NoProgressError" data-name="html5::noprogresserror">
+      <a href="../HTML5/NoProgressError.html">NoProgressError</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Span" data-name="html5::span">
+      <a href="../HTML5/Span.html">Span</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Token" data-name="html5::token">
+      <a href="../HTML5/Token.html">Token</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/TokenType" data-name="html5::tokentype">
+      <a href="../HTML5/TokenType.html">TokenType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> HTML5::Atom
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Module Atom provides integer codes (also known as atoms) for a fixed set of
+frequently occurring HTML5 strings: tag names and attribute keys such as "p"
+and "id".</p>
+
+<p>Sharing an atom's name between all elements with the same tag can result in
+fewer string allocations when tokenizing and parsing HTML5. Integer
+comparisons are also generally faster than string comparisons.</p>
+
+<p>The value of an atom's particular code is not guaranteed to stay the same
+between versions of this module. Neither is any ordering guaranteed:
+whether Atom::H1 &lt; Atom::H2 may also change. The codes are not guaranteed to
+be dense. The only guarantees are that e.g. looking up "div" will yield
+Atom::Div, calling Atom::Div.to_s will return "div", and Atom::Div != 0.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/atom/atom.cr#L14" target="_blank">
+        html5/atom/atom.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/atom/table.cr#L1" target="_blank">
+        html5/atom/table.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="A">
+        <strong>A</strong> = <code><span class="t">Atom</span>[<span class="n">1</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Abbr">
+        <strong>Abbr</strong> = <code><span class="t">Atom</span>[<span class="n">327940</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Accept">
+        <strong>Accept</strong> = <code><span class="t">Atom</span>[<span class="n">6</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="AcceptCharset">
+        <strong>AcceptCharset</strong> = <code><span class="t">Atom</span>[<span class="n">14</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Accesskey">
+        <strong>Accesskey</strong> = <code><span class="t">Atom</span>[<span class="n">4617</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Acronym">
+        <strong>Acronym</strong> = <code><span class="t">Atom</span>[<span class="n">27143</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Action">
+        <strong>Action</strong> = <code><span class="t">Atom</span>[<span class="n">163078</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Address">
+        <strong>Address</strong> = <code><span class="t">Atom</span>[<span class="n">472839</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Align">
+        <strong>Align</strong> = <code><span class="t">Atom</span>[<span class="n">28933</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Allowfullscreen">
+        <strong>Allowfullscreen</strong> = <code><span class="t">Atom</span>[<span class="n">127759</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Allowpaymentrequest">
+        <strong>Allowpaymentrequest</strong> = <code><span class="t">Atom</span>[<span class="n">33043</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Allowusermedia">
+        <strong>Allowusermedia</strong> = <code><span class="t">Atom</span>[<span class="n">40206</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Alt">
+        <strong>Alt</strong> = <code><span class="t">Atom</span>[<span class="n">51203</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Annotation">
+        <strong>Annotation</strong> = <code><span class="t">Atom</span>[<span class="n">114442</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="AnnotationXml">
+        <strong>AnnotationXml</strong> = <code><span class="t">Atom</span>[<span class="n">114446</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Applet">
+        <strong>Applet</strong> = <code><span class="t">Atom</span>[<span class="n">211206</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Area">
+        <strong>Area</strong> = <code><span class="t">Atom</span>[<span class="n">226820</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Article">
+        <strong>Article</strong> = <code><span class="t">Atom</span>[<span class="n">270855</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="As">
+        <strong>As</strong> = <code><span class="t">Atom</span>[<span class="n">8706</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Aside">
+        <strong>Aside</strong> = <code><span class="t">Atom</span>[<span class="n">24325</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Async">
+        <strong>Async</strong> = <code><span class="t">Atom</span>[<span class="n">59909</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Audio">
+        <strong>Audio</strong> = <code><span class="t">Atom</span>[<span class="n">64773</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Autocapitalize">
+        <strong>Autocapitalize</strong> = <code><span class="t">Atom</span>[<span class="n">67854</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Autocomplete">
+        <strong>Autocomplete</strong> = <code><span class="t">Atom</span>[<span class="n">164620</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Autofocus">
+        <strong>Autofocus</strong> = <code><span class="t">Atom</span>[<span class="n">71433</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Autoplay">
+        <strong>Autoplay</strong> = <code><span class="t">Atom</span>[<span class="n">79112</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="B">
+        <strong>B</strong> = <code><span class="t">Atom</span>[<span class="n">3585</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Base">
+        <strong>Base</strong> = <code><span class="t">Atom</span>[<span class="n">8452</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Basefont">
+        <strong>Basefont</strong> = <code><span class="t">Atom</span>[<span class="n">8456</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Bdi">
+        <strong>Bdi</strong> = <code><span class="t">Atom</span>[<span class="n">31235</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Bdo">
+        <strong>Bdo</strong> = <code><span class="t">Atom</span>[<span class="n">82947</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Bgsound">
+        <strong>Bgsound</strong> = <code><span class="t">Atom</span>[<span class="n">87815</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Big">
+        <strong>Big</strong> = <code><span class="t">Atom</span>[<span class="n">91907</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Blink">
+        <strong>Blink</strong> = <code><span class="t">Atom</span>[<span class="n">92677</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Blockquote">
+        <strong>Blockquote</strong> = <code><span class="t">Atom</span>[<span class="n">97546</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Body">
+        <strong>Body</strong> = <code><span class="t">Atom</span>[<span class="n">3588</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Br">
+        <strong>Br</strong> = <code><span class="t">Atom</span>[<span class="n">7938</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Button">
+        <strong>Button</strong> = <code><span class="t">Atom</span>[<span class="n">100102</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Canvas">
+        <strong>Canvas</strong> = <code><span class="t">Atom</span>[<span class="n">23302</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Caption">
+        <strong>Caption</strong> = <code><span class="t">Atom</span>[<span class="n">147975</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Center">
+        <strong>Center</strong> = <code><span class="t">Atom</span>[<span class="n">140294</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Challenge">
+        <strong>Challenge</strong> = <code><span class="t">Atom</span>[<span class="n">173577</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Charset">
+        <strong>Charset</strong> = <code><span class="t">Atom</span>[<span class="n">1799</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Checked">
+        <strong>Checked</strong> = <code><span class="t">Atom</span>[<span class="n">236807</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Cite">
+        <strong>Cite</strong> = <code><span class="t">Atom</span>[<span class="n">60932</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Class">
+        <strong>Class</strong> = <code><span class="t">Atom</span>[<span class="n">102917</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Code">
+        <strong>Code</strong> = <code><span class="t">Atom</span>[<span class="n">287236</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Col">
+        <strong>Col</strong> = <code><span class="t">Atom</span>[<span class="n">106755</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Colgroup">
+        <strong>Colgroup</strong> = <code><span class="t">Atom</span>[<span class="n">106760</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Color">
+        <strong>Color</strong> = <code><span class="t">Atom</span>[<span class="n">111877</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Cols">
+        <strong>Cols</strong> = <code><span class="t">Atom</span>[<span class="n">113156</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Colspan">
+        <strong>Colspan</strong> = <code><span class="t">Atom</span>[<span class="n">113159</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Command">
+        <strong>Command</strong> = <code><span class="t">Atom</span>[<span class="n">118023</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Content">
+        <strong>Content</strong> = <code><span class="t">Atom</span>[<span class="n">381191</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Contenteditable">
+        <strong>Contenteditable</strong> = <code><span class="t">Atom</span>[<span class="n">381199</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Contextmenu">
+        <strong>Contextmenu</strong> = <code><span class="t">Atom</span>[<span class="n">239115</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Controls">
+        <strong>Controls</strong> = <code><span class="t">Atom</span>[<span class="n">122888</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Coords">
+        <strong>Coords</strong> = <code><span class="t">Atom</span>[<span class="n">125958</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Crossorigin">
+        <strong>Crossorigin</strong> = <code><span class="t">Atom</span>[<span class="n">135435</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Data">
+        <strong>Data</strong> = <code><span class="t">Atom</span>[<span class="n">292100</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Datalist">
+        <strong>Datalist</strong> = <code><span class="t">Atom</span>[<span class="n">292104</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Datetime">
+        <strong>Datetime</strong> = <code><span class="t">Atom</span>[<span class="n">181000</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dd">
+        <strong>Dd</strong> = <code><span class="t">Atom</span>[<span class="n">188930</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Decoding">
+        <strong>Decoding</strong> = <code><span class="t">Atom</span>[<span class="n">25096</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Default">
+        <strong>Default</strong> = <code><span class="t">Atom</span>[<span class="n">287751</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Defer">
+        <strong>Defer</strong> = <code><span class="t">Atom</span>[<span class="n">300293</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Del">
+        <strong>Del</strong> = <code><span class="t">Atom</span>[<span class="n">374275</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Desc">
+        <strong>Desc</strong> = <code><span class="t">Atom</span>[<span class="n">22532</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Details">
+        <strong>Details</strong> = <code><span class="t">Atom</span>[<span class="n">47879</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dfn">
+        <strong>Dfn</strong> = <code><span class="t">Atom</span>[<span class="n">51971</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dialog">
+        <strong>Dialog</strong> = <code><span class="t">Atom</span>[<span class="n">31494</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dir">
+        <strong>Dir</strong> = <code><span class="t">Atom</span>[<span class="n">89347</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dirname">
+        <strong>Dirname</strong> = <code><span class="t">Atom</span>[<span class="n">89351</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Disabled">
+        <strong>Disabled</strong> = <code><span class="t">Atom</span>[<span class="n">94472</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Div">
+        <strong>Div</strong> = <code><span class="t">Atom</span>[<span class="n">96259</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dl">
+        <strong>Dl</strong> = <code><span class="t">Atom</span>[<span class="n">402690</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Download">
+        <strong>Download</strong> = <code><span class="t">Atom</span>[<span class="n">305160</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Draggable">
+        <strong>Draggable</strong> = <code><span class="t">Atom</span>[<span class="n">119561</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dropzone">
+        <strong>Dropzone</strong> = <code><span class="t">Atom</span>[<span class="n">273160</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Dt">
+        <strong>Dt</strong> = <code><span class="t">Atom</span>[<span class="n">426754</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Em">
+        <strong>Em</strong> = <code><span class="t">Atom</span>[<span class="n">21506</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Embed">
+        <strong>Embed</strong> = <code><span class="t">Atom</span>[<span class="n">21509</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Enctype">
+        <strong>Enctype</strong> = <code><span class="t">Atom</span>[<span class="n">169991</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Enterkeyhint">
+        <strong>Enterkeyhint</strong> = <code><span class="t">Atom</span>[<span class="n">140556</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Face">
+        <strong>Face</strong> = <code><span class="t">Atom</span>[<span class="n">139780</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Fieldset">
+        <strong>Fieldset</strong> = <code><span class="t">Atom</span>[<span class="n">145160</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Figcaption">
+        <strong>Figcaption</strong> = <code><span class="t">Atom</span>[<span class="n">147210</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Figure">
+        <strong>Figure</strong> = <code><span class="t">Atom</span>[<span class="n">152326</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Font">
+        <strong>Font</strong> = <code><span class="t">Atom</span>[<span class="n">9476</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Footer">
+        <strong>Footer</strong> = <code><span class="t">Atom</span>[<span class="n">55046</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="For">
+        <strong>For</strong> = <code><span class="t">Atom</span>[<span class="n">155395</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="ForeignObject">
+        <strong>ForeignObject</strong> = <code><span class="t">Atom</span>[<span class="n">155405</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Foreignobject">
+        <strong>Foreignobject</strong> = <code><span class="t">Atom</span>[<span class="n">158733</span>]</code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>HTML is case-insensitive, but SVG-embedded-in-HTML is case-sensitive.</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Form">
+        <strong>Form</strong> = <code><span class="t">Atom</span>[<span class="n">162052</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Formaction">
+        <strong>Formaction</strong> = <code><span class="t">Atom</span>[<span class="n">162058</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Formenctype">
+        <strong>Formenctype</strong> = <code><span class="t">Atom</span>[<span class="n">168971</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Formmethod">
+        <strong>Formmethod</strong> = <code><span class="t">Atom</span>[<span class="n">175882</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Formnovalidate">
+        <strong>Formnovalidate</strong> = <code><span class="t">Atom</span>[<span class="n">178446</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Formtarget">
+        <strong>Formtarget</strong> = <code><span class="t">Atom</span>[<span class="n">183050</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Frame">
+        <strong>Frame</strong> = <code><span class="t">Atom</span>[<span class="n">52997</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Frameset">
+        <strong>Frameset</strong> = <code><span class="t">Atom</span>[<span class="n">53000</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="H1">
+        <strong>H1</strong> = <code><span class="t">Atom</span>[<span class="n">87298</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="H2">
+        <strong>H2</strong> = <code><span class="t">Atom</span>[<span class="n">190722</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="H3">
+        <strong>H3</strong> = <code><span class="t">Atom</span>[<span class="n">208130</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="H4">
+        <strong>H4</strong> = <code><span class="t">Atom</span>[<span class="n">222466</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="H5">
+        <strong>H5</strong> = <code><span class="t">Atom</span>[<span class="n">225026</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="H6">
+        <strong>H6</strong> = <code><span class="t">Atom</span>[<span class="n">427266</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Head">
+        <strong>Head</strong> = <code><span class="t">Atom</span>[<span class="n">217348</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Header">
+        <strong>Header</strong> = <code><span class="t">Atom</span>[<span class="n">217350</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Headers">
+        <strong>Headers</strong> = <code><span class="t">Atom</span>[<span class="n">217351</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Height">
+        <strong>Height</strong> = <code><span class="t">Atom</span>[<span class="n">14342</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Hgroup">
+        <strong>Hgroup</strong> = <code><span class="t">Atom</span>[<span class="n">185606</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Hidden">
+        <strong>Hidden</strong> = <code><span class="t">Atom</span>[<span class="n">188422</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="High">
+        <strong>High</strong> = <code><span class="t">Atom</span>[<span class="n">189956</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Hr">
+        <strong>Hr</strong> = <code><span class="t">Atom</span>[<span class="n">86018</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Href">
+        <strong>Href</strong> = <code><span class="t">Atom</span>[<span class="n">191236</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Hreflang">
+        <strong>Hreflang</strong> = <code><span class="t">Atom</span>[<span class="n">191240</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Html">
+        <strong>Html</strong> = <code><span class="t">Atom</span>[<span class="n">15364</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="HttpEquiv">
+        <strong>HttpEquiv</strong> = <code><span class="t">Atom</span>[<span class="n">193290</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="I">
+        <strong>I</strong> = <code><span class="t">Atom</span>[<span class="n">10497</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Icon">
+        <strong>Icon</strong> = <code><span class="t">Atom</span>[<span class="n">380932</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Id">
+        <strong>Id</strong> = <code><span class="t">Atom</span>[<span class="n">24834</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Iframe">
+        <strong>Iframe</strong> = <code><span class="t">Atom</span>[<span class="n">198406</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Image">
+        <strong>Image</strong> = <code><span class="t">Atom</span>[<span class="n">199941</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Imagesizes">
+        <strong>Imagesizes</strong> = <code><span class="t">Atom</span>[<span class="n">199946</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Imagesrcset">
+        <strong>Imagesrcset</strong> = <code><span class="t">Atom</span>[<span class="n">203787</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Img">
+        <strong>Img</strong> = <code><span class="t">Atom</span>[<span class="n">206595</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Input">
+        <strong>Input</strong> = <code><span class="t">Atom</span>[<span class="n">298501</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Inputmode">
+        <strong>Inputmode</strong> = <code><span class="t">Atom</span>[<span class="n">298505</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ins">
+        <strong>Ins</strong> = <code><span class="t">Atom</span>[<span class="n">137731</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Integrity">
+        <strong>Integrity</strong> = <code><span class="t">Atom</span>[<span class="n">142857</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Is">
+        <strong>Is</strong> = <code><span class="t">Atom</span>[<span class="n">94722</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Isindex">
+        <strong>Isindex</strong> = <code><span class="t">Atom</span>[<span class="n">208647</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ismap">
+        <strong>Ismap</strong> = <code><span class="t">Atom</span>[<span class="n">210437</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Itemid">
+        <strong>Itemid</strong> = <code><span class="t">Atom</span>[<span class="n">241926</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Itemprop">
+        <strong>Itemprop</strong> = <code><span class="t">Atom</span>[<span class="n">61192</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Itemref">
+        <strong>Itemref</strong> = <code><span class="t">Atom</span>[<span class="n">258823</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Itemscope">
+        <strong>Itemscope</strong> = <code><span class="t">Atom</span>[<span class="n">439561</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Itemtype">
+        <strong>Itemtype</strong> = <code><span class="t">Atom</span>[<span class="n">212744</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Kbd">
+        <strong>Kbd</strong> = <code><span class="t">Atom</span>[<span class="n">30979</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Keygen">
+        <strong>Keygen</strong> = <code><span class="t">Atom</span>[<span class="n">6150</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Keytype">
+        <strong>Keytype</strong> = <code><span class="t">Atom</span>[<span class="n">38407</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Kind">
+        <strong>Kind</strong> = <code><span class="t">Atom</span>[<span class="n">93700</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Label">
+        <strong>Label</strong> = <code><span class="t">Atom</span>[<span class="n">16133</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Lang">
+        <strong>Lang</strong> = <code><span class="t">Atom</span>[<span class="n">192260</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Legend">
+        <strong>Legend</strong> = <code><span class="t">Atom</span>[<span class="n">121350</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Li">
+        <strong>Li</strong> = <code><span class="t">Atom</span>[<span class="n">29186</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Link">
+        <strong>Link</strong> = <code><span class="t">Atom</span>[<span class="n">92932</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="List">
+        <strong>List</strong> = <code><span class="t">Atom</span>[<span class="n">293124</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Listing">
+        <strong>Listing</strong> = <code><span class="t">Atom</span>[<span class="n">293127</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Loading">
+        <strong>Loading</strong> = <code><span class="t">Atom</span>[<span class="n">306183</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Loop">
+        <strong>Loop</strong> = <code><span class="t">Atom</span>[<span class="n">17156</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Low">
+        <strong>Low</strong> = <code><span class="t">Atom</span>[<span class="n">33539</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Main">
+        <strong>Main</strong> = <code><span class="t">Atom</span>[<span class="n">332036</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Malignmark">
+        <strong>Malignmark</strong> = <code><span class="t">Atom</span>[<span class="n">28682</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Manifest">
+        <strong>Manifest</strong> = <code><span class="t">Atom</span>[<span class="n">465672</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Map">
+        <strong>Map</strong> = <code><span class="t">Atom</span>[<span class="n">210947</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Mark">
+        <strong>Mark</strong> = <code><span class="t">Atom</span>[<span class="n">30212</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Marquee">
+        <strong>Marquee</strong> = <code><span class="t">Atom</span>[<span class="n">214791</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Math">
+        <strong>Math</strong> = <code><span class="t">Atom</span>[<span class="n">216580</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Max">
+        <strong>Max</strong> = <code><span class="t">Atom</span>[<span class="n">220419</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Maxlength">
+        <strong>Maxlength</strong> = <code><span class="t">Atom</span>[<span class="n">220425</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Media">
+        <strong>Media</strong> = <code><span class="t">Atom</span>[<span class="n">42501</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Mediagroup">
+        <strong>Mediagroup</strong> = <code><span class="t">Atom</span>[<span class="n">42506</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Menu">
+        <strong>Menu</strong> = <code><span class="t">Atom</span>[<span class="n">240900</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Menuitem">
+        <strong>Menuitem</strong> = <code><span class="t">Atom</span>[<span class="n">240904</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Meta">
+        <strong>Meta</strong> = <code><span class="t">Atom</span>[<span class="n">326148</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Meter">
+        <strong>Meter</strong> = <code><span class="t">Atom</span>[<span class="n">90629</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Method">
+        <strong>Method</strong> = <code><span class="t">Atom</span>[<span class="n">176902</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Mglyph">
+        <strong>Mglyph</strong> = <code><span class="t">Atom</span>[<span class="n">206854</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Mi">
+        <strong>Mi</strong> = <code><span class="t">Atom</span>[<span class="n">222978</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Min">
+        <strong>Min</strong> = <code><span class="t">Atom</span>[<span class="n">222979</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Minlength">
+        <strong>Minlength</strong> = <code><span class="t">Atom</span>[<span class="n">222985</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Mn">
+        <strong>Mn</strong> = <code><span class="t">Atom</span>[<span class="n">179202</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Mo">
+        <strong>Mo</strong> = <code><span class="t">Atom</span>[<span class="n">58370</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ms">
+        <strong>Ms</strong> = <code><span class="t">Atom</span>[<span class="n">440322</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Mtext">
+        <strong>Mtext</strong> = <code><span class="t">Atom</span>[<span class="n">225541</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Multiple">
+        <strong>Multiple</strong> = <code><span class="t">Atom</span>[<span class="n">229128</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Muted">
+        <strong>Muted</strong> = <code><span class="t">Atom</span>[<span class="n">231173</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Name">
+        <strong>Name</strong> = <code><span class="t">Atom</span>[<span class="n">90116</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Nav">
+        <strong>Nav</strong> = <code><span class="t">Atom</span>[<span class="n">332803</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Nobr">
+        <strong>Nobr</strong> = <code><span class="t">Atom</span>[<span class="n">7428</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Noembed">
+        <strong>Noembed</strong> = <code><span class="t">Atom</span>[<span class="n">20999</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Noframes">
+        <strong>Noframes</strong> = <code><span class="t">Atom</span>[<span class="n">52488</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Nomodule">
+        <strong>Nomodule</strong> = <code><span class="t">Atom</span>[<span class="n">57864</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Nonce">
+        <strong>Nonce</strong> = <code><span class="t">Atom</span>[<span class="n">63493</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Noscript">
+        <strong>Noscript</strong> = <code><span class="t">Atom</span>[<span class="n">131336</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Novalidate">
+        <strong>Novalidate</strong> = <code><span class="t">Atom</span>[<span class="n">179466</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Object">
+        <strong>Object</strong> = <code><span class="t">Atom</span>[<span class="n">160518</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ol">
+        <strong>Ol</strong> = <code><span class="t">Atom</span>[<span class="n">77058</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onabort">
+        <strong>Onabort</strong> = <code><span class="t">Atom</span>[<span class="n">101127</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onafterprint">
+        <strong>Onafterprint</strong> = <code><span class="t">Atom</span>[<span class="n">149260</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onautocomplete">
+        <strong>Onautocomplete</strong> = <code><span class="t">Atom</span>[<span class="n">164110</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onautocompleteerror">
+        <strong>Onautocompleteerror</strong> = <code><span class="t">Atom</span>[<span class="n">164115</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onauxclick">
+        <strong>Onauxclick</strong> = <code><span class="t">Atom</span>[<span class="n">415498</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onbeforeprint">
+        <strong>Onbeforeprint</strong> = <code><span class="t">Atom</span>[<span class="n">451085</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onbeforeunload">
+        <strong>Onbeforeunload</strong> = <code><span class="t">Atom</span>[<span class="n">469774</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onblur">
+        <strong>Onblur</strong> = <code><span class="t">Atom</span>[<span class="n">105222</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oncancel">
+        <strong>Oncancel</strong> = <code><span class="t">Atom</span>[<span class="n">65800</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oncanplay">
+        <strong>Oncanplay</strong> = <code><span class="t">Atom</span>[<span class="n">83465</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oncanplaythrough">
+        <strong>Oncanplaythrough</strong> = <code><span class="t">Atom</span>[<span class="n">83472</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onchange">
+        <strong>Onchange</strong> = <code><span class="t">Atom</span>[<span class="n">278792</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onclick">
+        <strong>Onclick</strong> = <code><span class="t">Atom</span>[<span class="n">196615</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onclose">
+        <strong>Onclose</strong> = <code><span class="t">Atom</span>[<span class="n">232455</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oncontextmenu">
+        <strong>Oncontextmenu</strong> = <code><span class="t">Atom</span>[<span class="n">238605</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oncopy">
+        <strong>Oncopy</strong> = <code><span class="t">Atom</span>[<span class="n">243462</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oncuechange">
+        <strong>Oncuechange</strong> = <code><span class="t">Atom</span>[<span class="n">245003</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oncut">
+        <strong>Oncut</strong> = <code><span class="t">Atom</span>[<span class="n">247813</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondblclick">
+        <strong>Ondblclick</strong> = <code><span class="t">Atom</span>[<span class="n">249098</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondrag">
+        <strong>Ondrag</strong> = <code><span class="t">Atom</span>[<span class="n">251654</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondragend">
+        <strong>Ondragend</strong> = <code><span class="t">Atom</span>[<span class="n">251657</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondragenter">
+        <strong>Ondragenter</strong> = <code><span class="t">Atom</span>[<span class="n">253963</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondragexit">
+        <strong>Ondragexit</strong> = <code><span class="t">Atom</span>[<span class="n">256778</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondragleave">
+        <strong>Ondragleave</strong> = <code><span class="t">Atom</span>[<span class="n">263435</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondragover">
+        <strong>Ondragover</strong> = <code><span class="t">Atom</span>[<span class="n">266250</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondragstart">
+        <strong>Ondragstart</strong> = <code><span class="t">Atom</span>[<span class="n">268811</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondrop">
+        <strong>Ondrop</strong> = <code><span class="t">Atom</span>[<span class="n">272646</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ondurationchange">
+        <strong>Ondurationchange</strong> = <code><span class="t">Atom</span>[<span class="n">276752</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onemptied">
+        <strong>Onemptied</strong> = <code><span class="t">Atom</span>[<span class="n">274441</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onended">
+        <strong>Onended</strong> = <code><span class="t">Atom</span>[<span class="n">280839</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onerror">
+        <strong>Onerror</strong> = <code><span class="t">Atom</span>[<span class="n">282631</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onfocus">
+        <strong>Onfocus</strong> = <code><span class="t">Atom</span>[<span class="n">284423</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onformdata">
+        <strong>Onformdata</strong> = <code><span class="t">Atom</span>[<span class="n">290570</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onhashchange">
+        <strong>Onhashchange</strong> = <code><span class="t">Atom</span>[<span class="n">294924</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oninput">
+        <strong>Oninput</strong> = <code><span class="t">Atom</span>[<span class="n">297991</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Oninvalid">
+        <strong>Oninvalid</strong> = <code><span class="t">Atom</span>[<span class="n">301577</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onkeydown">
+        <strong>Onkeydown</strong> = <code><span class="t">Atom</span>[<span class="n">303881</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onkeypress">
+        <strong>Onkeypress</strong> = <code><span class="t">Atom</span>[<span class="n">307978</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onkeyup">
+        <strong>Onkeyup</strong> = <code><span class="t">Atom</span>[<span class="n">312071</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onlanguagechange">
+        <strong>Onlanguagechange</strong> = <code><span class="t">Atom</span>[<span class="n">315408</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onload">
+        <strong>Onload</strong> = <code><span class="t">Atom</span>[<span class="n">319494</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onloadeddata">
+        <strong>Onloadeddata</strong> = <code><span class="t">Atom</span>[<span class="n">319500</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onloadedmetadata">
+        <strong>Onloadedmetadata</strong> = <code><span class="t">Atom</span>[<span class="n">324112</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onloadend">
+        <strong>Onloadend</strong> = <code><span class="t">Atom</span>[<span class="n">334601</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onloadstart">
+        <strong>Onloadstart</strong> = <code><span class="t">Atom</span>[<span class="n">336907</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmessage">
+        <strong>Onmessage</strong> = <code><span class="t">Atom</span>[<span class="n">339721</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmessageerror">
+        <strong>Onmessageerror</strong> = <code><span class="t">Atom</span>[<span class="n">339726</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmousedown">
+        <strong>Onmousedown</strong> = <code><span class="t">Atom</span>[<span class="n">343307</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmouseenter">
+        <strong>Onmouseenter</strong> = <code><span class="t">Atom</span>[<span class="n">346124</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmouseleave">
+        <strong>Onmouseleave</strong> = <code><span class="t">Atom</span>[<span class="n">349196</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmousemove">
+        <strong>Onmousemove</strong> = <code><span class="t">Atom</span>[<span class="n">352267</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmouseout">
+        <strong>Onmouseout</strong> = <code><span class="t">Atom</span>[<span class="n">355082</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmouseover">
+        <strong>Onmouseover</strong> = <code><span class="t">Atom</span>[<span class="n">358411</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmouseup">
+        <strong>Onmouseup</strong> = <code><span class="t">Atom</span>[<span class="n">361225</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onmousewheel">
+        <strong>Onmousewheel</strong> = <code><span class="t">Atom</span>[<span class="n">364812</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onoffline">
+        <strong>Onoffline</strong> = <code><span class="t">Atom</span>[<span class="n">367881</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ononline">
+        <strong>Ononline</strong> = <code><span class="t">Atom</span>[<span class="n">370184</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onpagehide">
+        <strong>Onpagehide</strong> = <code><span class="t">Atom</span>[<span class="n">372234</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onpageshow">
+        <strong>Onpageshow</strong> = <code><span class="t">Atom</span>[<span class="n">375050</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onpaste">
+        <strong>Onpaste</strong> = <code><span class="t">Atom</span>[<span class="n">378119</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onpause">
+        <strong>Onpause</strong> = <code><span class="t">Atom</span>[<span class="n">385031</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onplay">
+        <strong>Onplay</strong> = <code><span class="t">Atom</span>[<span class="n">387590</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onplaying">
+        <strong>Onplaying</strong> = <code><span class="t">Atom</span>[<span class="n">387593</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onpopstate">
+        <strong>Onpopstate</strong> = <code><span class="t">Atom</span>[<span class="n">389898</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onprogress">
+        <strong>Onprogress</strong> = <code><span class="t">Atom</span>[<span class="n">392458</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onratechange">
+        <strong>Onratechange</strong> = <code><span class="t">Atom</span>[<span class="n">396044</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onrejectionhandled">
+        <strong>Onrejectionhandled</strong> = <code><span class="t">Atom</span>[<span class="n">399122</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onreset">
+        <strong>Onreset</strong> = <code><span class="t">Atom</span>[<span class="n">403719</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onresize">
+        <strong>Onresize</strong> = <code><span class="t">Atom</span>[<span class="n">405512</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onscroll">
+        <strong>Onscroll</strong> = <code><span class="t">Atom</span>[<span class="n">407560</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onsecuritypolicyviolation">
+        <strong>Onsecuritypolicyviolation</strong> = <code><span class="t">Atom</span>[<span class="n">409625</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onseeked">
+        <strong>Onseeked</strong> = <code><span class="t">Atom</span>[<span class="n">418056</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onseeking">
+        <strong>Onseeking</strong> = <code><span class="t">Atom</span>[<span class="n">420105</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onselect">
+        <strong>Onselect</strong> = <code><span class="t">Atom</span>[<span class="n">422408</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onshow">
+        <strong>Onshow</strong> = <code><span class="t">Atom</span>[<span class="n">424966</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onslotchange">
+        <strong>Onslotchange</strong> = <code><span class="t">Atom</span>[<span class="n">427788</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onsort">
+        <strong>Onsort</strong> = <code><span class="t">Atom</span>[<span class="n">430854</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onstalled">
+        <strong>Onstalled</strong> = <code><span class="t">Atom</span>[<span class="n">433417</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onstorage">
+        <strong>Onstorage</strong> = <code><span class="t">Atom</span>[<span class="n">435721</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onsubmit">
+        <strong>Onsubmit</strong> = <code><span class="t">Atom</span>[<span class="n">438024</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onsuspend">
+        <strong>Onsuspend</strong> = <code><span class="t">Atom</span>[<span class="n">442121</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ontimeupdate">
+        <strong>Ontimeupdate</strong> = <code><span class="t">Atom</span>[<span class="n">9740</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ontoggle">
+        <strong>Ontoggle</strong> = <code><span class="t">Atom</span>[<span class="n">444424</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onunhandledrejection">
+        <strong>Onunhandledrejection</strong> = <code><span class="t">Atom</span>[<span class="n">446484</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onunload">
+        <strong>Onunload</strong> = <code><span class="t">Atom</span>[<span class="n">454408</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onvolumechange">
+        <strong>Onvolumechange</strong> = <code><span class="t">Atom</span>[<span class="n">456462</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onwaiting">
+        <strong>Onwaiting</strong> = <code><span class="t">Atom</span>[<span class="n">460041</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Onwheel">
+        <strong>Onwheel</strong> = <code><span class="t">Atom</span>[<span class="n">462343</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Open">
+        <strong>Open</strong> = <code><span class="t">Atom</span>[<span class="n">62724</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Optgroup">
+        <strong>Optgroup</strong> = <code><span class="t">Atom</span>[<span class="n">17672</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Optimum">
+        <strong>Optimum</strong> = <code><span class="t">Atom</span>[<span class="n">464135</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Option">
+        <strong>Option</strong> = <code><span class="t">Atom</span>[<span class="n">468742</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Output">
+        <strong>Output</strong> = <code><span class="t">Atom</span>[<span class="n">356870</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="P">
+        <strong>P</strong> = <code><span class="t">Atom</span>[<span class="n">1025</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Param">
+        <strong>Param</strong> = <code><span class="t">Atom</span>[<span class="n">331013</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Pattern">
+        <strong>Pattern</strong> = <code><span class="t">Atom</span>[<span class="n">19463</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Picture">
+        <strong>Picture</strong> = <code><span class="t">Atom</span>[<span class="n">44807</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ping">
+        <strong>Ping</strong> = <code><span class="t">Atom</span>[<span class="n">50180</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Placeholder">
+        <strong>Placeholder</strong> = <code><span class="t">Atom</span>[<span class="n">75531</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Plaintext">
+        <strong>Plaintext</strong> = <code><span class="t">Atom</span>[<span class="n">108553</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Playsinline">
+        <strong>Playsinline</strong> = <code><span class="t">Atom</span>[<span class="n">80139</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Poster">
+        <strong>Poster</strong> = <code><span class="t">Atom</span>[<span class="n">186886</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Pre">
+        <strong>Pre</strong> = <code><span class="t">Atom</span>[<span class="n">309251</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Preload">
+        <strong>Preload</strong> = <code><span class="t">Atom</span>[<span class="n">313607</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Progress">
+        <strong>Progress</strong> = <code><span class="t">Atom</span>[<span class="n">392968</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Prompt">
+        <strong>Prompt</strong> = <code><span class="t">Atom</span>[<span class="n">363270</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Public">
+        <strong>Public</strong> = <code><span class="t">Atom</span>[<span class="n">379910</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Q">
+        <strong>Q</strong> = <code><span class="t">Atom</span>[<span class="n">36609</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Radiogroup">
+        <strong>Radiogroup</strong> = <code><span class="t">Atom</span>[<span class="n">328714</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Rb">
+        <strong>Rb</strong> = <code><span class="t">Atom</span>[<span class="n">8194</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Readonly">
+        <strong>Readonly</strong> = <code><span class="t">Atom</span>[<span class="n">227080</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Referrerpolicy">
+        <strong>Referrerpolicy</strong> = <code><span class="t">Atom</span>[<span class="n">259854</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Rel">
+        <strong>Rel</strong> = <code><span class="t">Atom</span>[<span class="n">313859</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Required">
+        <strong>Required</strong> = <code><span class="t">Atom</span>[<span class="n">153352</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Reversed">
+        <strong>Reversed</strong> = <code><span class="t">Atom</span>[<span class="n">46088</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Rows">
+        <strong>Rows</strong> = <code><span class="t">Atom</span>[<span class="n">56324</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Rowspan">
+        <strong>Rowspan</strong> = <code><span class="t">Atom</span>[<span class="n">56327</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Rp">
+        <strong>Rp</strong> = <code><span class="t">Atom</span>[<span class="n">150786</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Rt">
+        <strong>Rt</strong> = <code><span class="t">Atom</span>[<span class="n">102402</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Rtc">
+        <strong>Rtc</strong> = <code><span class="t">Atom</span>[<span class="n">102403</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ruby">
+        <strong>Ruby</strong> = <code><span class="t">Atom</span>[<span class="n">78084</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="S">
+        <strong>S</strong> = <code><span class="t">Atom</span>[<span class="n">2817</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Samp">
+        <strong>Samp</strong> = <code><span class="t">Atom</span>[<span class="n">49412</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Sandbox">
+        <strong>Sandbox</strong> = <code><span class="t">Atom</span>[<span class="n">73479</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Scope">
+        <strong>Scope</strong> = <code><span class="t">Atom</span>[<span class="n">440581</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Scoped">
+        <strong>Scoped</strong> = <code><span class="t">Atom</span>[<span class="n">440582</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Script">
+        <strong>Script</strong> = <code><span class="t">Atom</span>[<span class="n">131846</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Seamless">
+        <strong>Seamless</strong> = <code><span class="t">Atom</span>[<span class="n">233736</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Section">
+        <strong>Section</strong> = <code><span class="t">Atom</span>[<span class="n">103943</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Select">
+        <strong>Select</strong> = <code><span class="t">Atom</span>[<span class="n">422918</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Selected">
+        <strong>Selected</strong> = <code><span class="t">Atom</span>[<span class="n">422920</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Shape">
+        <strong>Shape</strong> = <code><span class="t">Atom</span>[<span class="n">124677</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Size">
+        <strong>Size</strong> = <code><span class="t">Atom</span>[<span class="n">201220</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Sizes">
+        <strong>Sizes</strong> = <code><span class="t">Atom</span>[<span class="n">201221</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Slot">
+        <strong>Slot</strong> = <code><span class="t">Atom</span>[<span class="n">428292</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Small">
+        <strong>Small</strong> = <code><span class="t">Atom</span>[<span class="n">127237</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Sortable">
+        <strong>Sortable</strong> = <code><span class="t">Atom</span>[<span class="n">431368</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Sorted">
+        <strong>Sorted</strong> = <code><span class="t">Atom</span>[<span class="n">138246</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Source">
+        <strong>Source</strong> = <code><span class="t">Atom</span>[<span class="n">202246</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Spacer">
+        <strong>Spacer</strong> = <code><span class="t">Atom</span>[<span class="n">218886</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Span">
+        <strong>Span</strong> = <code><span class="t">Atom</span>[<span class="n">57092</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Spellcheck">
+        <strong>Spellcheck</strong> = <code><span class="t">Atom</span>[<span class="n">235530</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Src">
+        <strong>Src</strong> = <code><span class="t">Atom</span>[<span class="n">205059</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Srcdoc">
+        <strong>Srcdoc</strong> = <code><span class="t">Atom</span>[<span class="n">285958</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Srclang">
+        <strong>Srclang</strong> = <code><span class="t">Atom</span>[<span class="n">310279</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Srcset">
+        <strong>Srcset</strong> = <code><span class="t">Atom</span>[<span class="n">205062</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Start">
+        <strong>Start</strong> = <code><span class="t">Atom</span>[<span class="n">270341</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Step">
+        <strong>Step</strong> = <code><span class="t">Atom</span>[<span class="n">379140</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Strike">
+        <strong>Strike</strong> = <code><span class="t">Atom</span>[<span class="n">37382</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Strong">
+        <strong>Strong</strong> = <code><span class="t">Atom</span>[<span class="n">467206</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Style">
+        <strong>Style</strong> = <code><span class="t">Atom</span>[<span class="n">394757</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Sub">
+        <strong>Sub</strong> = <code><span class="t">Atom</span>[<span class="n">438531</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Summary">
+        <strong>Summary</strong> = <code><span class="t">Atom</span>[<span class="n">474375</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Sup">
+        <strong>Sup</strong> = <code><span class="t">Atom</span>[<span class="n">476163</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Svg">
+        <strong>Svg</strong> = <code><span class="t">Atom</span>[<span class="n">476931</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="System">
+        <strong>System</strong> = <code><span class="t">Atom</span>[<span class="n">477702</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Tabindex">
+        <strong>Tabindex</strong> = <code><span class="t">Atom</span>[<span class="n">322056</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Table">
+        <strong>Table</strong> = <code><span class="t">Atom</span>[<span class="n">383749</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Target">
+        <strong>Target</strong> = <code><span class="t">Atom</span>[<span class="n">184070</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Tbody">
+        <strong>Tbody</strong> = <code><span class="t">Atom</span>[<span class="n">3333</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Td">
+        <strong>Td</strong> = <code><span class="t">Atom</span>[<span class="n">51714</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Template">
+        <strong>Template</strong> = <code><span class="t">Atom</span>[<span class="n">478472</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Textarea">
+        <strong>Textarea</strong> = <code><span class="t">Atom</span>[<span class="n">225800</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Tfoot">
+        <strong>Tfoot</strong> = <code><span class="t">Atom</span>[<span class="n">54789</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Th">
+        <strong>Th</strong> = <code><span class="t">Atom</span>[<span class="n">85762</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Thead">
+        <strong>Thead</strong> = <code><span class="t">Atom</span>[<span class="n">217093</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Time">
+        <strong>Time</strong> = <code><span class="t">Atom</span>[<span class="n">10244</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Title">
+        <strong>Title</strong> = <code><span class="t">Atom</span>[<span class="n">289285</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Tr">
+        <strong>Tr</strong> = <code><span class="t">Atom</span>[<span class="n">35842</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Track">
+        <strong>Track</strong> = <code><span class="t">Atom</span>[<span class="n">110597</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Translate">
+        <strong>Translate</strong> = <code><span class="t">Atom</span>[<span class="n">133129</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Tt">
+        <strong>Tt</strong> = <code><span class="t">Atom</span>[<span class="n">19970</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Type">
+        <strong>Type</strong> = <code><span class="t">Atom</span>[<span class="n">39172</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Typemustmatch">
+        <strong>Typemustmatch</strong> = <code><span class="t">Atom</span>[<span class="n">170765</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="U">
+        <strong>U</strong> = <code><span class="t">Atom</span>[<span class="n">11265</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Ul">
+        <strong>Ul</strong> = <code><span class="t">Atom</span>[<span class="n">59138</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Updateviacache">
+        <strong>Updateviacache</strong> = <code><span class="t">Atom</span>[<span class="n">11278</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Usemap">
+        <strong>Usemap</strong> = <code><span class="t">Atom</span>[<span class="n">386054</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Value">
+        <strong>Value</strong> = <code><span class="t">Atom</span>[<span class="n">333317</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Var">
+        <strong>Var</strong> = <code><span class="t">Atom</span>[<span class="n">96771</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Video">
+        <strong>Video</strong> = <code><span class="t">Atom</span>[<span class="n">195589</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Wbr">
+        <strong>Wbr</strong> = <code><span class="t">Atom</span>[<span class="n">377347</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Width">
+        <strong>Width</strong> = <code><span class="t">Atom</span>[<span class="n">426245</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Workertype">
+        <strong>Workertype</strong> = <code><span class="t">Atom</span>[<span class="n">480522</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Wrap">
+        <strong>Wrap</strong> = <code><span class="t">Atom</span>[<span class="n">483076</span>]</code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Xmp">
+        <strong>Xmp</strong> = <code><span class="t">Atom</span>[<span class="n">75011</span>]</code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#lookup(s:Bytes):Atom-class-method" class="signature"><strong>.lookup</strong>(s : Bytes) : Atom</a>
+        
+          <div class="summary"><p>returns the Atom whose name is s.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#string(s:Bytes):String-class-method" class="signature"><strong>.string</strong>(s : Bytes) : String</a>
+        
+          <div class="summary"><p>returns a string whose contents are equal to s.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="lookup(s:Bytes):Atom-class-method">
+      <div class="signature">
+        
+        def self.<strong>lookup</strong>(s : Bytes) : <a href="../HTML5/Atom/Atom.html">Atom</a>
+
+        <a class="method-permalink" href="#lookup(s:Bytes):Atom-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>returns the Atom whose name is s. It returns zero if there is no such Atom.
+Lookup is case sensitive</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/atom/atom.cr#L62" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="string(s:Bytes):String-class-method">
+      <div class="signature">
+        
+        def self.<strong>string</strong>(s : Bytes) : String
+
+        <a class="method-permalink" href="#string(s:Bytes):String-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>returns a string whose contents are equal to s.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/atom/atom.cr#L73" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="html5">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="html5">
+  <title>CSS::TokenType - html5 master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          html5
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="html5/CSS" data-name="css">
+      <a href="../CSS.html">CSS</a>
+      
+        <ul>
+  
+  <li class=" " data-id="html5/CSS/CSSException" data-name="css::cssexception">
+      <a href="../CSS/CSSException.html">CSSException</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/Lexer" data-name="css::lexer">
+      <a href="../CSS/Lexer.html">Lexer</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/Selector" data-name="css::selector">
+      <a href="../CSS/Selector.html">Selector</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/CSS/SyntaxError" data-name="css::syntaxerror">
+      <a href="../CSS/SyntaxError.html">SyntaxError</a>
+      
+    </li>
+  
+  <li class=" current" data-id="html5/CSS/TokenType" data-name="css::tokentype">
+      <a href="../CSS/TokenType.html">TokenType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="html5/HTML5" data-name="html5">
+      <a href="../HTML5.html">HTML5</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="html5/HTML5/Atom" data-name="html5::atom">
+      <a href="../HTML5/Atom.html">Atom</a>
+      
+        <ul>
+  
+  <li class=" " data-id="html5/HTML5/Atom/Atom" data-name="html5::atom::atom">
+      <a href="../HTML5/Atom/Atom.html">Atom</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Attribute" data-name="html5::attribute">
+      <a href="../HTML5/Attribute.html">Attribute</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/HTMLException" data-name="html5::htmlexception">
+      <a href="../HTML5/HTMLException.html">HTMLException</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/MaxBufferExceeded" data-name="html5::maxbufferexceeded">
+      <a href="../HTML5/MaxBufferExceeded.html">MaxBufferExceeded</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Node" data-name="html5::node">
+      <a href="../HTML5/Node.html">Node</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/NodeType" data-name="html5::nodetype">
+      <a href="../HTML5/NodeType.html">NodeType</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/NoProgressError" data-name="html5::noprogresserror">
+      <a href="../HTML5/NoProgressError.html">NoProgressError</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Span" data-name="html5::span">
+      <a href="../HTML5/Span.html">Span</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/Token" data-name="html5::token">
+      <a href="../HTML5/Token.html">Token</a>
+      
+    </li>
+  
+  <li class=" " data-id="html5/HTML5/TokenType" data-name="html5::tokentype">
+      <a href="../HTML5/TokenType.html">TokenType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">enum</span> CSS::TokenType
+
+</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L2" target="_blank">
+        html5/css/lexer.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="enum-members" class="anchor" href="#enum-members">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Enum Members
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="Astr">
+        <strong>Astr</strong> = <code><span class="n">0</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Bar">
+        <strong>Bar</strong> = <code><span class="n">1</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>*</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Colon">
+        <strong>Colon</strong> = <code><span class="n">2</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>|</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Comma">
+        <strong>Comma</strong> = <code><span class="n">3</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>:</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Dimension">
+        <strong>Dimension</strong> = <code><span class="n">4</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>,</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Dot">
+        <strong>Dot</strong> = <code><span class="n">5</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>4n</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Function">
+        <strong>Function</strong> = <code><span class="n">6</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>.</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Hash">
+        <strong>Hash</strong> = <code><span class="n">7</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>nth-child(</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Ident">
+        <strong>Ident</strong> = <code><span class="n">8</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <h1><a id="foo" class="anchor" href="#foo">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>foo</h1>
+      </dd>
+      
+    
+      <dt class="entry-const" id="LeftBrace">
+        <strong>LeftBrace</strong> = <code><span class="n">9</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>h2</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Match">
+        <strong>Match</strong> = <code><span class="n">10</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>[</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="MatchDash">
+        <strong>MatchDash</strong> = <code><span class="n">11</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>=</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="MatchIncludes">
+        <strong>MatchIncludes</strong> = <code><span class="n">12</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>|=</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="MatchPrefix">
+        <strong>MatchPrefix</strong> = <code><span class="n">13</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>~=</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="MatchSubStr">
+        <strong>MatchSubStr</strong> = <code><span class="n">14</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>^=</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="MatchSuffix">
+        <strong>MatchSuffix</strong> = <code><span class="n">15</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>*=</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Not">
+        <strong>Not</strong> = <code><span class="n">16</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>$=</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Number">
+        <strong>Number</strong> = <code><span class="n">17</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>:not(</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Plus">
+        <strong>Plus</strong> = <code><span class="n">18</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>37</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="RightBrace">
+        <strong>RightBrace</strong> = <code><span class="n">19</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>+</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="RightParen">
+        <strong>RightParen</strong> = <code><span class="n">20</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>]</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Space">
+        <strong>Space</strong> = <code><span class="n">21</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>)</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="String">
+        <strong>String</strong> = <code><span class="n">22</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>\t \n\r\f</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Sub">
+        <strong>Sub</strong> = <code><span class="n">23</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>'hello world'</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Greater">
+        <strong>Greater</strong> = <code><span class="n">24</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>-</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Tilde">
+        <strong>Tilde</strong> = <code><span class="n">25</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <blockquote></blockquote>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Comment">
+        <strong>Comment</strong> = <code><span class="n">26</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>~</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="Error">
+        <strong>Error</strong> = <code><span class="n">27</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>/* comments */</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="EOF">
+        <strong>EOF</strong> = <code><span class="n">28</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#from(c:Char)-class-method" class="signature"><strong>.from</strong>(c : Char)</a>
+        
+          <div class="summary"><p>not included ':' may be ':not(', must check that first '.' may be the beginning of a number</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#astr?-instance-method" class="signature"><strong>#astr?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bar?-instance-method" class="signature"><strong>#bar?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#colon?-instance-method" class="signature"><strong>#colon?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#comma?-instance-method" class="signature"><strong>#comma?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#comment?-instance-method" class="signature"><strong>#comment?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dimension?-instance-method" class="signature"><strong>#dimension?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dot?-instance-method" class="signature"><strong>#dot?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#eof?-instance-method" class="signature"><strong>#eof?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#error?-instance-method" class="signature"><strong>#error?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#function?-instance-method" class="signature"><strong>#function?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#greater?-instance-method" class="signature"><strong>#greater?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash?-instance-method" class="signature"><strong>#hash?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ident?-instance-method" class="signature"><strong>#ident?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#left_brace?-instance-method" class="signature"><strong>#left_brace?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match?-instance-method" class="signature"><strong>#match?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match_dash?-instance-method" class="signature"><strong>#match_dash?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match_includes?-instance-method" class="signature"><strong>#match_includes?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match_prefix?-instance-method" class="signature"><strong>#match_prefix?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match_sub_str?-instance-method" class="signature"><strong>#match_sub_str?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#match_suffix?-instance-method" class="signature"><strong>#match_suffix?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not?-instance-method" class="signature"><strong>#not?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#number?-instance-method" class="signature"><strong>#number?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#plus?-instance-method" class="signature"><strong>#plus?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_brace?-instance-method" class="signature"><strong>#right_brace?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_paren?-instance-method" class="signature"><strong>#right_paren?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#space?-instance-method" class="signature"><strong>#space?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#string?-instance-method" class="signature"><strong>#string?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sub?-instance-method" class="signature"><strong>#sub?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tilde?-instance-method" class="signature"><strong>#tilde?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><p>Returns a <code><a href="../CSS/TokenType.html#String">String</a></code> representation of this enum member.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="from(c:Char)-class-method">
+      <div class="signature">
+        
+        def self.<strong>from</strong>(c : Char)
+
+        <a class="method-permalink" href="#from(c:Char)-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>not included
+':' may be ':not(', must check that first
+'.' may be the beginning of a number</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L63" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="astr?-instance-method">
+      <div class="signature">
+        
+        def <strong>astr?</strong>
+
+        <a class="method-permalink" href="#astr?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L3" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bar?-instance-method">
+      <div class="signature">
+        
+        def <strong>bar?</strong>
+
+        <a class="method-permalink" href="#bar?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L4" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="colon?-instance-method">
+      <div class="signature">
+        
+        def <strong>colon?</strong>
+
+        <a class="method-permalink" href="#colon?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="comma?-instance-method">
+      <div class="signature">
+        
+        def <strong>comma?</strong>
+
+        <a class="method-permalink" href="#comma?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="comment?-instance-method">
+      <div class="signature">
+        
+        def <strong>comment?</strong>
+
+        <a class="method-permalink" href="#comment?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L29" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dimension?-instance-method">
+      <div class="signature">
+        
+        def <strong>dimension?</strong>
+
+        <a class="method-permalink" href="#dimension?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dot?-instance-method">
+      <div class="signature">
+        
+        def <strong>dot?</strong>
+
+        <a class="method-permalink" href="#dot?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="eof?-instance-method">
+      <div class="signature">
+        
+        def <strong>eof?</strong>
+
+        <a class="method-permalink" href="#eof?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L31" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="error?-instance-method">
+      <div class="signature">
+        
+        def <strong>error?</strong>
+
+        <a class="method-permalink" href="#error?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="function?-instance-method">
+      <div class="signature">
+        
+        def <strong>function?</strong>
+
+        <a class="method-permalink" href="#function?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="greater?-instance-method">
+      <div class="signature">
+        
+        def <strong>greater?</strong>
+
+        <a class="method-permalink" href="#greater?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash?-instance-method">
+      <div class="signature">
+        
+        def <strong>hash?</strong>
+
+        <a class="method-permalink" href="#hash?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ident?-instance-method">
+      <div class="signature">
+        
+        def <strong>ident?</strong>
+
+        <a class="method-permalink" href="#ident?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L11" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="left_brace?-instance-method">
+      <div class="signature">
+        
+        def <strong>left_brace?</strong>
+
+        <a class="method-permalink" href="#left_brace?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match?-instance-method">
+      <div class="signature">
+        
+        def <strong>match?</strong>
+
+        <a class="method-permalink" href="#match?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L13" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match_dash?-instance-method">
+      <div class="signature">
+        
+        def <strong>match_dash?</strong>
+
+        <a class="method-permalink" href="#match_dash?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L14" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match_includes?-instance-method">
+      <div class="signature">
+        
+        def <strong>match_includes?</strong>
+
+        <a class="method-permalink" href="#match_includes?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match_prefix?-instance-method">
+      <div class="signature">
+        
+        def <strong>match_prefix?</strong>
+
+        <a class="method-permalink" href="#match_prefix?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match_sub_str?-instance-method">
+      <div class="signature">
+        
+        def <strong>match_sub_str?</strong>
+
+        <a class="method-permalink" href="#match_sub_str?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L17" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="match_suffix?-instance-method">
+      <div class="signature">
+        
+        def <strong>match_suffix?</strong>
+
+        <a class="method-permalink" href="#match_suffix?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not?-instance-method">
+      <div class="signature">
+        
+        def <strong>not?</strong>
+
+        <a class="method-permalink" href="#not?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L19" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="number?-instance-method">
+      <div class="signature">
+        
+        def <strong>number?</strong>
+
+        <a class="method-permalink" href="#number?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="plus?-instance-method">
+      <div class="signature">
+        
+        def <strong>plus?</strong>
+
+        <a class="method-permalink" href="#plus?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_brace?-instance-method">
+      <div class="signature">
+        
+        def <strong>right_brace?</strong>
+
+        <a class="method-permalink" href="#right_brace?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_paren?-instance-method">
+      <div class="signature">
+        
+        def <strong>right_paren?</strong>
+
+        <a class="method-permalink" href="#right_paren?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L23" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="space?-instance-method">
+      <div class="signature">
+        
+        def <strong>space?</strong>
+
+        <a class="method-permalink" href="#space?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L24" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="string?-instance-method">
+      <div class="signature">
+        
+        def <strong>string?</strong>
+
+        <a class="method-permalink" href="#string?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sub?-instance-method">
+      <div class="signature">
+        
+        def <strong>sub?</strong>
+
+        <a class="method-permalink" href="#sub?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L26" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tilde?-instance-method">
+      <div class="signature">
+        
+        def <strong>tilde?</strong>
+
+        <a class="method-permalink" href="#tilde?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>
+
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+            <div class="doc-inherited">
+              Description copied from struct Enum
+            </div>
+          
+          <p>Returns a <code><a href="../CSS/TokenType.html#String">String</a></code> representation of this enum member.
+In the case of regular enums, this is just the name of the member.
+In the case of flag enums, it's the names joined by vertical bars, or "None",
+if the value is zero.</p>
+
+<p>If an enum's value doesn't match a member's value, the raw value
+is returned as a string.</p>
+
+<pre><code class="language-crystal"><span class="t">Color</span><span class="t">::</span><span class="t">Red</span>.to_s                     <span class="c"># =&gt; &quot;Red&quot;</span>
+<span class="t">IOMode</span><span class="t">::</span><span class="t">None</span>.to_s                   <span class="c"># =&gt; &quot;None&quot;</span>
+(<span class="t">IOMode</span><span class="t">::</span><span class="t">Read</span> <span class="o">|</span> <span class="t">IOMode</span><span class="t">::</span><span class="t">Write</span>).to_s <span class="c"># =&gt; &quot;Read | Write&quot;</span>
+
+<span class="t">Color</span>.<span class="k">new</span>(<span class="n">10</span>).to_s <span class="c"># =&gt; &quot;10&quot;</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/crystal-html5/blob/7173f23a49bd0ceec1db84809a2099cd10a1748d/src/html5/css/lexer.cr#L33" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
