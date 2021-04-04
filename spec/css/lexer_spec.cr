@@ -40,7 +40,7 @@ module CSS
       {Proc(Nil).new { l.next }, " "},
       {Proc(Nil).new {
         loop do
-          return if l.next == EOF
+          break if l.next == EOF
         end
       }, "world"},
     ]
