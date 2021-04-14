@@ -431,6 +431,14 @@ module CSS
       },
       {
         %q(<ol><li id=1><li id=2><li id=3></ol>),
+        %q(li:nth-child(n+2)),
+        [
+          %q(<li id="2"></li>),
+          %q(<li id="3"></li>),
+        ],
+      },
+      {
+        %q(<ol><li id=1><li id=2><li id=3></ol>),
         %q(li:nth-child(3n+1)),
         [
           %q(<li id="1"></li>),

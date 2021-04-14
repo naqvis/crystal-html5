@@ -258,6 +258,9 @@ module CSS
           return {2, 0}
         when "odd"
           return {2, 1}
+        when "n"
+          a = 1
+          self.next
         else
           raise CSSException.new("Unsupported argument : #{t.val}")
         end
