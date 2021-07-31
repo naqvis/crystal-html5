@@ -31,8 +31,6 @@ module HTML5
         p.quirks = quirks
         p.im = ->before_html_im(Parser)
         return true
-      else
-        #
       end
       p.quirks = true
       p.im = ->before_html_im(Parser)
@@ -69,8 +67,6 @@ module HTML5
           data: p.token.data
         ))
         return true
-      else
-        #
       end
       p.parse_implied_token(TokenType::StartTag, Atom::Html, Atom::Html.to_s)
       false
@@ -368,7 +364,7 @@ module HTML5
           return true if p.oe.contains(Atom::Template)
           if p.oe.size >= 2
             body = p.oe[1]
-            if body.type == NodeType::Element && body.data_atom == Atom::Body
+            if body.type.element? && body.data_atom == Atom::Body
               p.frameset_ok = false
               copy_attributes(body, p.token)
             end
@@ -394,7 +390,7 @@ module HTML5
         when Atom::H1, Atom::H2, Atom::H3, Atom::H4, Atom::H5, Atom::H6
           p.pop_until(Scope::Button, Atom::P)
           n = p.top
-          p.oe.pop if [Atom::H1, Atom::H2, Atom::H3, Atom::H4, Atom::H5, Atom::H6].includes?(n.data_atom)
+          p.oe.pop if {Atom::H1, Atom::H2, Atom::H3, Atom::H4, Atom::H5, Atom::H6}.includes?(n.data_atom)
           p.add_element
         when Atom::Pre, Atom::Listing
           p.pop_until(Scope::Button, Atom::P)
@@ -448,8 +444,8 @@ module HTML5
           p.frameset_ok = false
         when Atom::A
           i = p.afe.size - 1
-          while i >= 0 && (p.afe[i].type != NodeType::ScopeMarker)
-            if (n = p.afe[i]) && (n.type == NodeType::Element) && (n.data_atom == Atom::A)
+          while i >= 0 && !p.afe[i].type.scope_marker?
+            if (n = p.afe[i]) && n.type.element? && (n.data_atom == Atom::A)
               p.in_body_end_tag_formatting(Atom::A, "a")
               p.oe.remove(n)
               p.afe.remove(n)
@@ -487,11 +483,9 @@ module HTML5
           p.acknowledge_self_closing_tag
           if p.token.data_atom == Atom::Input
             p.token.attr.each do |t|
-              if t.key == "type"
-                if t.val.downcase == "hidden"
-                  # Skip setting frameset_ok = false
-                  return true
-                end
+              if t.key == "type" && t.val.downcase == "hidden"
+                # Skip setting frameset_ok = false
+                return true
               end
             end
           end
@@ -675,7 +669,7 @@ module HTML5
         p.im = orig
       end
       p.original_im = nil
-      p.token.type == TokenType::EndTag
+      p.token.type.end_tag?
     end
 
     # Section 12.2.6.4.9
@@ -683,7 +677,7 @@ module HTML5
       case p.token.type
       when .text?
         p.token.data = p.token.data.gsub("\x00", "")
-        if [Atom::Table, Atom::Tbody, Atom::Tfoot, Atom::Thead, Atom::Tr].includes?(p.oe.top.try &.data_atom)
+        if {Atom::Table, Atom::Tbody, Atom::Tfoot, Atom::Thead, Atom::Tr}.includes?(p.oe.top.try &.data_atom)
           if p.token.data.strip(WHITE_SPACE).empty?
             p.add_text(p.token.data)
             return true
@@ -737,7 +731,7 @@ module HTML5
           p.form = p.oe.pop
         when Atom::Select
           p.reconstruct_active_formatting_elements
-          if [Atom::Table, Atom::Tbody, Atom::Tfoot, Atom::Thead, Atom::Tr].includes?(p.top.data_atom)
+          if {Atom::Table, Atom::Tbody, Atom::Tfoot, Atom::Thead, Atom::Tr}.includes?(p.top.data_atom)
             p.foster_parenting = true
           end
           p.add_element
@@ -745,8 +739,6 @@ module HTML5
           p.frameset_ok = false
           p.im = ->in_select_in_table_im(Parser)
           return true
-        else
-          #
         end
       when .end_tag?
         case p.token.data_atom
@@ -945,8 +937,6 @@ module HTML5
           data: p.token.data
         ))
         return true
-      else
-        #
       end
       in_table_im(p)
     end
@@ -998,8 +988,6 @@ module HTML5
         when Atom::Body, Atom::Caption, Atom::Col, Atom::Colgroup, Atom::Html, Atom::Td, Atom::Th
           # ignore the token
           return true
-        else
-          #
         end
       else
         #
@@ -1027,8 +1015,6 @@ module HTML5
           p.frameset_ok = false
           p.im = ->in_select_in_table_im(Parser)
           return true
-        else
-          #
         end
       when .end_tag?
         case p.token.data_atom
@@ -1048,11 +1034,7 @@ module HTML5
           end
           p.im = ->in_row_im(Parser)
           return false
-        else
-          #
         end
-      else
-        #
       end
       in_body_im(p)
     end
@@ -1087,8 +1069,6 @@ module HTML5
           return true
         when Atom::Script, Atom::Template
           return in_head_im(p)
-        else
-          #
         end
       when .end_tag?
         case p.token.data_atom
@@ -1103,8 +1083,6 @@ module HTML5
           p.reset_insertion_mode
         when Atom::Template
           return in_head_im(p)
-        else
-          #
         end
       when .comment?
         p.add_child(Node.new(
@@ -1116,8 +1094,6 @@ module HTML5
         return true
       when .error?
         return in_body_im(p)
-      else
-        #
       end
       true
     end
@@ -1128,7 +1104,7 @@ module HTML5
       when .start_tag?, .end_tag?
         case p.token.data_atom
         when Atom::Caption, Atom::Table, Atom::Tbody, Atom::Tfoot, Atom::Thead, Atom::Tr, Atom::Td, Atom::Th
-          if p.token.type == TokenType::EndTag && !p.element_in_scope(Scope::Table, p.token.data_atom)
+          if p.token.type.end_tag? && !p.element_in_scope(Scope::Table, p.token.data_atom)
             # Ignore the token
             return true
           end
@@ -1144,11 +1120,7 @@ module HTML5
           end
           p.reset_insertion_mode
           return false
-        else
-          #
         end
-      else
-        #
       end
       in_select_im(p)
     end
@@ -1244,8 +1216,6 @@ module HTML5
           data: p.token.data
         ))
         return true
-      else
-        #
       end
       p.im = ->in_body_im(Parser)
       false
@@ -1263,7 +1233,7 @@ module HTML5
         # Ignore all text but whitespace
         s = String.build do |sb|
           p.token.data.each_char do |c|
-            sb << c if [' ', '\t', '\n', '\f', '\r'].includes?(c)
+            sb << c if {' ', '\t', '\n', '\f', '\r'}.includes?(c)
           end
         end
         p.add_text(s) unless s.empty?
@@ -1279,8 +1249,6 @@ module HTML5
           p.acknowledge_self_closing_tag
         when Atom::Noframes
           return in_head_im(p)
-        else
-          #
         end
       when .end_tag?
         if p.token.data_atom == Atom::Frameset
@@ -1310,7 +1278,7 @@ module HTML5
         # Ignore all text but whitespace
         s = String.build do |sb|
           p.token.data.each_char do |c|
-            sb << c if [' ', '\t', '\n', '\f', '\r'].includes?(c)
+            sb << c if {' ', '\t', '\n', '\f', '\r'}.includes?(c)
           end
         end
         p.add_text(s) unless s.empty?
@@ -1354,8 +1322,6 @@ module HTML5
         return true
       when .doctype?
         return in_body_im(p)
-      else
-        #
       end
       p.im = ->in_body_im(Parser)
       false
@@ -1373,7 +1339,7 @@ module HTML5
         # Ignore all text but whitespace
         s = String.build do |sb|
           p.token.data.each_char do |c|
-            sb << c if [' ', '\t', '\n', '\f', '\r'].includes?(c)
+            sb << c if {' ', '\t', '\n', '\f', '\r'}.includes?(c)
           end
         end
         unless s.empty?
@@ -1386,8 +1352,6 @@ module HTML5
           return in_body_im(p)
         when Atom::Noframes
           return in_head_im(p)
-        else
-          #
         end
       when .doctype?
         return in_body_im(p)
@@ -1414,7 +1378,7 @@ module HTML5
           b = BREAKOUT.fetch(p.token.data, false)
           if p.token.data_atom == Atom::Font
             p.token.attr.each do |attr|
-              if ["color", "face", "size"].includes?(attr.key)
+              if {"color", "face", "size"}.includes?(attr.key)
                 b = true
                 break
               end

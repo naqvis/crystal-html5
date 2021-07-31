@@ -134,7 +134,7 @@ module CSS
     def emit(t : TokenType)
       raise CSSException.new("nothing to emit at pos #{@pos}") if @last == @pos
       val = @s[@last...@pos]
-      val = "-1n" if t == TokenType::Dimension && val == "-n"
+      val = "-1n" if t.dimension? && val == "-n"
       @c.send(Token.new(t, val, @last))
       @last = @pos
     end
@@ -220,7 +220,7 @@ module CSS
     def parse_colon
       raise CSSException.new("expected ':' before calling parse_colon") unless self.next == ':'
 
-      chars = ["nN", "oO", "tT", "("]
+      chars = {"nN", "oO", "tT", "("}
       backup = 0
       chars.each do |c|
         unless c.includes?(self.peek)

@@ -34,13 +34,13 @@ module CSS
 
     def next
       tok = self.peek
-      return tok if [TokenType::Error, TokenType::EOF].includes?(tok.type)
+      return tok if tok.type.error? || tok.type.eof?
       @peek_tok = @t.token
       tok
     end
 
     def skip_space
-      while (self.peek.type == TokenType::Space)
+      while self.peek.type.space?
         self.next
       end
       self.peek
@@ -73,9 +73,9 @@ module CSS
           self.skip_space
           combination = true
           sel.combs << CombinatorSelector.new(t.type, compile_simple_selector_seq)
-          if t.type == TokenType::Not
+          if t.type.not?
             tok = self.next
-            raise CSS.syntax_error(tok, TokenType::RightParen).exception unless tok.type == TokenType::RightParen
+            raise CSS.syntax_error(tok, TokenType::RightParen).exception unless tok.type.right_paren?
           end
         when .ident?
           return sel unless combination
@@ -105,7 +105,7 @@ module CSS
         when .dot?
           self.next
           tk = self.peek
-          raise CSS.syntax_error(tk, TokenType::Ident).exception unless tk.type == TokenType::Ident
+          raise CSS.syntax_error(tk, TokenType::Ident).exception unless tk.type.ident?
           matchers += [AttrMatcher.new("class", tk.val).as(Matcher)]
         when .hash?
           matchers += [AttrMatcher.new("id", t.val.lchop("#")).as(Matcher)]
@@ -128,11 +128,11 @@ module CSS
 
     def compile_attr
       tok = self.next
-      raise CSS.syntax_error(tok, TokenType::LeftBrace).exception unless tok.type == TokenType::LeftBrace
+      raise CSS.syntax_error(tok, TokenType::LeftBrace).exception unless tok.type.left_brace?
 
       self.skip_space
       tok = self.next
-      raise CSS.syntax_error(tok, TokenType::Ident).exception unless tok.type == TokenType::Ident
+      raise CSS.syntax_error(tok, TokenType::Ident).exception unless tok.type.ident?
 
       key = tok.val
       self.skip_space
@@ -160,7 +160,7 @@ module CSS
 
       self.skip_space
       t = self.peek
-      raise CSS.syntax_error(t, TokenType::RightBrace).exception unless t.type == TokenType::RightBrace
+      raise CSS.syntax_error(t, TokenType::RightBrace).exception unless t.type.right_brace?
 
       case matcher_type
       when .match_dash?
@@ -180,9 +180,9 @@ module CSS
 
     def compile_pseudo
       tok = self.next
-      raise CSS.syntax_error(tok, TokenType::Colon).exception unless tok.type == TokenType::Colon
+      raise CSS.syntax_error(tok, TokenType::Colon).exception unless tok.type.colon?
 
-      double_colon = self.peek.type == TokenType::Colon
+      double_colon = self.peek.type.colon?
       self.next if double_colon
 
       t = self.peek # next
@@ -208,21 +208,21 @@ module CSS
         raise SyntaxErr.new("uknown psuedo: #{s + t.val}", t.start).exception
       when .function?
         raise SyntaxErr.new("uknown psuedo: #{t.val}", t.start).exception if double_colon
-        if ["nth-child(", "nth-last-child(", "nth-of-type(", "nth-last-of-type("].includes?(t.val)
+        if {"nth-child(", "nth-last-child(", "nth-of-type(", "nth-last-of-type("}.includes?(t.val)
           self.next
           a, b = parse_nth_args()
-          last = ["nth-last-child(", "nth-last-of-type("].includes?(t.val)
-          oftype = ["nth-of-type(", "nth-last-of-type("].includes?(t.val)
+          last = {"nth-last-child(", "nth-last-of-type("}.includes?(t.val)
+          oftype = {"nth-of-type(", "nth-last-of-type("}.includes?(t.val)
           m = NthChildPseudo.new(a, b, last, oftype)
         elsif t.val == "contains("
           self.next
-          raise CSS.syntax_error(self.next, TokenType::String).exception unless self.peek.type == TokenType::String
+          raise CSS.syntax_error(self.next, TokenType::String).exception unless self.peek.type.string?
           str = self.next.val
           str = str[1..str.size - 2]
           m = MatcherFunc.new ->(node : HTML5::Node) { node.inner_text.includes?(str) }
         elsif t.val == "containsOwn("
           self.next
-          raise CSS.syntax_error(self.next, TokenType::String).exception unless self.peek.type == TokenType::String
+          raise CSS.syntax_error(self.next, TokenType::String).exception unless self.peek.type.string?
           str = self.next.val
           str = str[1..str.size - 2]
           m = MatcherFunc.new ->(node : HTML5::Node) {
@@ -238,7 +238,7 @@ module CSS
         else
           raise SyntaxErr.new("uknown psuedo: #{t.val}", t.start).exception
         end
-        raise CSS.syntax_error(self.next, TokenType::RightParen).exception unless self.peek.type == TokenType::RightParen
+        raise CSS.syntax_error(self.next, TokenType::RightParen).exception unless self.peek.type.right_paren?
         return m.not_nil!
       else
         raise CSS.syntax_error(t, TokenType::Ident, TokenType::Function).exception
@@ -323,7 +323,7 @@ module CSS
       self.next
       self.skip_space
       t = self.next
-      raise CSS.syntax_error(t, TokenType::Ident, TokenType::Number, TokenType::Sub, TokenType::Plus).exception unless t.type == TokenType::Number
+      raise CSS.syntax_error(t, TokenType::Ident, TokenType::Number, TokenType::Sub, TokenType::Plus).exception unless t.type.number?
       begin
         b = t.val.to_i
       rescue ex

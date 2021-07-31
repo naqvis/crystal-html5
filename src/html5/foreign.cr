@@ -14,8 +14,8 @@ module HTML5
       aa.each do |a|
         next if a.key.empty? || a.key[0] != 'x'
 
-        if ["xlink:actuate", "xlink:arcrole", "xlink:href", "xlink:role", "xlink:show",
-            "xlink:title", "xlink:type", "xml:base", "xml:lang", "xml:space", "xmlns:xlink"].includes?(a.key)
+        if {"xlink:actuate", "xlink:arcrole", "xlink:href", "xlink:role", "xlink:show",
+            "xlink:title", "xlink:type", "xml:base", "xml:lang", "xml:space", "xmlns:xlink"}.includes?(a.key)
           if (j = a.key.index(":"))
             a.namespace = a.key[...j]
             a.key = a.key[j + 1..]
@@ -25,7 +25,7 @@ module HTML5
     end
 
     def html_integration_point(n : Node)
-      return false unless n.type == NodeType::Element
+      return false unless n.type.element?
 
       case n.namespace
       when "math"
@@ -33,12 +33,12 @@ module HTML5
           n.attr.each do |a|
             if a.key == "encoding"
               val = a.val.downcase
-              return true if ["text/html", "application/xhtml+xml"].includes?(val)
+              return true if {"text/html", "application/xhtml+xml"}.includes?(val)
             end
           end
         end
       when "svg"
-        return true if ["desc", "foreignObject", "title"].includes?(n.data)
+        return true if {"desc", "foreignObject", "title"}.includes?(n.data)
       else
         false
       end
@@ -47,7 +47,7 @@ module HTML5
 
     def mathml_text_integration_point(n : Node)
       return false unless n.namespace == "math"
-      ["mi", "mo", "mn", "ms", "mtext"].includes?(n.data)
+      {"mi", "mo", "mn", "ms", "mtext"}.includes?(n.data)
     end
 
     # Section 12.2.6.5

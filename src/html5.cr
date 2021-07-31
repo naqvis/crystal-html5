@@ -62,7 +62,7 @@ module HTML5
   def self.parse_fragment(io : IO, context : Node? = nil, **opts)
     context_tag = ""
     if (cnode = context)
-      raise HTMLException.new("parse_fragment of non-element Node") unless cnode.type == NodeType::Element
+      raise HTMLException.new("parse_fragment of non-element Node") unless cnode.type.element?
 
       # The next check isn't jsut context.data_atom.to_s == context.data because
       # it is valid to pass an element whose tag isn't a known atom. For example,
@@ -92,7 +92,7 @@ module HTML5
     p.reset_insertion_mode
     if (cnode = context)
       while cnode
-        if cnode.type == NodeType::Element && cnode.data_atom == Atom::Form
+        if cnode.type.element? && cnode.data_atom == Atom::Form
           p.form = cnode
           break
         end
