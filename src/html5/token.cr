@@ -969,7 +969,7 @@ module HTML5
         @data.start = @raw.end
         @data.end = @raw.end
         s = HTML5.convert_new_lines(s)
-        if (@convert_nul || @tt == TokenType::Comment) && String.new(s).includes?(NUL)
+        if (@convert_nul || @tt.comment?) && String.new(s).includes?(NUL)
           str = String.new(s)
           str = str.gsub(NUL, REPLACEMENT)
           s = str.to_slice
@@ -987,7 +987,7 @@ module HTML5
     # The contents of the returned slice may change on the next call to next.
     def tag_name : {Bytes?, Bool}
       if @data.start < @data.end
-        if [TokenType::StartTag, TokenType::EndTag, TokenType::SelfClosingTag].includes?(@tt)
+        if @tt.start_tag? || @tt.end_tag? || @tt.self_closing_tag?
           s = @buf[@data.start...@data.end]
           @data.start = @raw.end
           @data.end = @raw.end
@@ -1002,7 +1002,7 @@ module HTML5
     # The contents of the returned slices may change on the next call to next.
     def tag_attr : {Bytes?, Bytes?, Bool}
       if @n_attr_returned < @attr.size
-        if [TokenType::StartTag, TokenType::SelfClosingTag].includes?(@tt)
+        if @tt.start_tag? || @tt.self_closing_tag?
           x = @attr[@n_attr_returned]
           @n_attr_returned += 1
           key = @buf[x[0].start...x[0].end]

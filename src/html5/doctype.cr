@@ -29,12 +29,12 @@ module HTML5
 
       key = s[...6].downcase
       s = s[6..]
-      while ["public", "system"].includes?(key)
+      while {"public", "system"}.includes?(key)
         s = s.lstrip(WHITE_SPACE)
         break if s.empty?
 
         quote = s[0]
-        break unless ['"', '\''].includes?(quote)
+        break unless {'"', '\''}.includes?(quote)
         s = s[1..]
         q = s.index(quote) || -1
         if q == -1
@@ -56,8 +56,8 @@ module HTML5
           when "-//w3o//dtd w3 html strict 3.0//en//", "-/w3d/dtd html 4.0 transitional/en", "html"
             quirks = true
           else
-            QUIRKY_IDS.each do |q|
-              if public.starts_with?(q)
+            QUIRKY_IDS.each do |_q|
+              if public.starts_with?(_q)
                 quirks = true
                 break
               end
@@ -79,7 +79,7 @@ module HTML5
 
     # QUIRKY_IDS is a list of public doctype identifiers that cause a document
     # to be interpreted in quirks mode. The identifiers should be in lower case.
-    private QUIRKY_IDS = [
+    private QUIRKY_IDS = {
       "+//silmaril//dtd html pro v0r11 19970101//",
       "-//advasoft ltd//dtd html 3.0 aswedit + extensions//",
       "-//as//dtd html 3.0 aswedit + extensions//",
@@ -135,6 +135,6 @@ module HTML5
       "-//w3o//dtd w3 html 3.0//",
       "-//webtechs//dtd mozilla html 2.0//",
       "-//webtechs//dtd mozilla html//",
-    ]
+    }
   end
 end

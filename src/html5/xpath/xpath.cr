@@ -20,7 +20,7 @@ module HTML5
           nav = t.current.as(XPath2::NodeNavigator)
           n = get_current_node(nav)
           # avoid adding duplicating nodes
-          if elems.size > 0 && (elems[0] == n || (nav.node_type == XPath2::NodeType::Attribute &&
+          if elems.size > 0 && (elems[0] == n || (nav.node_type.attribute? &&
              nav.local_name == elems[0].data && nav.value == elems[0].inner_text))
             next
           end
@@ -56,7 +56,7 @@ module HTML5
     # the inner text or else it will scan through node attributes and returns the value of attribute matching the `name`
     # returns "" if no attribute is found.
     def attribute_value(name : String)
-      return inner_text if type == NodeType::Element && parent.nil? && name == data
+      return inner_text if type.element? && parent.nil? && name == data
       attr.each do |a|
         return a.val if a.key == name
       end
@@ -64,7 +64,7 @@ module HTML5
     end
 
     private def get_current_node(n : XPath2::NodeNavigator)
-      if n.node_type == XPath2::NodeType::Attribute
+      if n.node_type.attribute?
         child = Node.new(
           type: NodeType::Text,
           data: n.value

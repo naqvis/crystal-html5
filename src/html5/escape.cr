@@ -5,7 +5,7 @@ module HTML5
   # assumed Windows-1252 encoding.
   # https://html.spec.whatwg.org/multipage/syntax.html#consume-a-character-reference
 
-  private REPLACEMENT_TABLE = [
+  private REPLACEMENT_TABLE = {
     '\u20AC', # First entry is what 0x80 should be replaced with.
     '\u0081',
     '\u201A',
@@ -40,7 +40,7 @@ module HTML5
     '\u0178', # Last entry is 0x9F.
     # 0x00->'\uFFFD' is handled programmatically.
     # 0x0D->'\u000D' is a no-op.
-  ]
+  }
 
   private def encode_int(x)
     # Negative values are errorneous. Making it unsigned address the problem
@@ -94,7 +94,7 @@ module HTML5
       i += 1
       c = s[i].unsafe_chr
       hex = false
-      if ['x', 'X'].includes?(c)
+      if {'x', 'X'}.includes?(c)
         hex = true
         i += 1
       end
@@ -253,9 +253,9 @@ module HTML5
   # always true.
   def escape_string(s : String) : String
     return s if index_any(s, ESCAPED_CHARS) == -1
-    buf = IO::Memory.new
-    escape(buf, s)
-    buf.to_s
+    String.build do |io|
+      escape(io, s)
+    end
   end
 
   # unescape_string unescapes entities like "&lt;" to become "<". It unescapes a

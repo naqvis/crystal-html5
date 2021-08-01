@@ -50,7 +50,7 @@ module CSS
       spawn { l.parse_next }
       c = Compiler.new(l)
       sel = c.compile_selector
-      fail "case=#{i}: did not parse entire input" unless c.peek.type == TokenType::EOF
+      fail "case=#{i}: did not parse entire input" unless c.peek.type.eof?
       run_test(i, t[0], sel, t[2])
     end
   end
@@ -73,7 +73,7 @@ module CSS
       spawn { l.parse_next }
       c = Compiler.new(l)
       sel = c.compile_selector
-      fail "case=#{i}: did not parse entire input" unless c.peek.type == TokenType::EOF
+      fail "case=#{i}: did not parse entire input" unless c.peek.type.eof?
       run_test(i, t[0], sel, t[2])
     end
   end
@@ -129,7 +129,7 @@ module CSS
       m = c.compile_attr
       sel = SelectorSequence.new([m.as(Matcher)])
       c.next
-      fail "case=#{i}: did not parse entire input. token: #{c.peek}" unless c.peek.type == TokenType::EOF
+      fail "case=#{i}: did not parse entire input. token: #{c.peek}" unless c.peek.type.eof?
       run_test(i, t[0], sel, t[2])
     end
   end
@@ -153,7 +153,7 @@ module CSS
       spawn { l.parse_next }
       c = Compiler.new(l)
       a, b = c.parse_nth_args
-      fail "case=#{i}: did not parse entire input. token: #{c.peek}" unless c.peek.type == TokenType::EOF
+      fail "case=#{i}: did not parse entire input. token: #{c.peek}" unless c.peek.type.eof?
       fail "case='#{t[0]}': wanted=(a=#{t[1]}, b=#{t[2]}), got=(a=#{a}, b=#{b})" unless t[1] == a && t[2] == b
     end
   end

@@ -373,6 +373,6 @@ module CSS
   end
 
   protected def self.input(n : HTML5::Node) : Bool
-    n.element? && ["input", "select", "textarea", "button"].includes?(n.data)
+    n.element? && {"input", "select", "textarea", "button"}.includes?(n.data)
   end
 end

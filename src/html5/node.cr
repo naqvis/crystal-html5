@@ -89,33 +89,33 @@ module HTML5
     end
 
     # Returns `true` if this node is a Document Node
-    def document?
-      type == NodeType::Document
+    def document? : Bool
+      type.document?
     end
 
     # Returns `true` if this node is an Element Node
-    def element?
-      type == NodeType::Element
+    def element? : Bool
+      type.element?
     end
 
     # Returns `true` if this node is a Text Node
-    def text?
-      type == NodeType::Text
+    def text? : Bool
+      type.text?
     end
 
     # Returns `true` if this node is a Comment Node
-    def comment?
-      type == NodeType::Comment
+    def comment? : Bool
+      type.comment?
     end
 
     # Returns `true` if this node is a Doctype Node
-    def doctype?
-      type == NodeType::Doctype
+    def doctype? : Bool
+      type.doctype?
     end
 
     # Returns `true` if this node is an Error Node
-    def error?
-      type == NodeType::Error
+    def error? : Bool
+      type.error?
     end
 
     # insert_before inserts a new_child as a child of self, immediately before old_child
@@ -287,8 +287,8 @@ module HTML5
       io << ">"
 
       # Add initial newline where there is danger of a newline beging ignored.
-      if (c = first_child) && (c.type == NodeType::Text) && (c.data.starts_with?("\n"))
-        io << "\n" if ["pre", "listing", "textarea"].includes?(c.data)
+      if (c = first_child) && c.type.text? && c.data.starts_with?("\n")
+        io << "\n" if {"pre", "listing", "textarea"}.includes?(c.data)
       end
 
       # Render any child nodes.
@@ -296,7 +296,7 @@ module HTML5
       when "iframe", "noembed", "noframes", "noscript", "plaintext", "script", "style", "xmp"
         c = first_child
         while c
-          if c.type == NodeType::Text
+          if c.type.text?
             io << c.data
           else
             c.render(io)
@@ -323,26 +323,26 @@ module HTML5
     end
 
     # returns the inner text of current node
-    def inner_text
-      io = IO::Memory.new
-      output(io, self)
-      io.to_s
+    def inner_text : String
+      String.build do |io|
+        output(io, self)
+      end
     end
 
     # Renders node to HTML. `self_only` will render current node only, but if its false
     # it will return the HTML of current node as well as all of its children
-    def to_html(self_only : Bool = true)
-      io = IO::Memory.new
-      if self_only
-        render(io)
-      else
-        c = first_child
-        while c
-          c.render(io)
-          c = c.next_sibling
+    def to_html(self_only : Bool = true) : String
+      String.build do |io|
+        if self_only
+          render(io)
+        else
+          c = first_child
+          while c
+            c.render(io)
+            c = c.next_sibling
+          end
         end
       end
-      io.to_s
     end
 
     private def output(io, n)
@@ -351,8 +351,6 @@ module HTML5
         return io << n.data
       when .comment?
         return
-      else
-        #
       end
       child = n.first_child
       while child
@@ -369,21 +367,21 @@ module HTML5
     # Section 12.1.2, "Elements", gives this list of void elements. Void elements
     # are those that can't have any children
     private VOID_ELEMENTS = {
-      "area"  => true,
-      "base"  => true,
-      "br"    => true,
-      "col"   => true,
-      "embed" => true,
-      "hr"    => true,
-      "img"   => true,
-      "input" => true,
-      "keygen":  true,
-      "link"  => true,
-      "meta"  => true,
-      "param" => true,
-      "source":  true,
-      "track" => true,
-      "wbr"   => true,
+      "area"   => true,
+      "base"   => true,
+      "br"     => true,
+      "col"    => true,
+      "embed"  => true,
+      "hr"     => true,
+      "img"    => true,
+      "input"  => true,
+      "keygen" => true,
+      "link"   => true,
+      "meta"   => true,
+      "param"  => true,
+      "source" => true,
+      "track"  => true,
+      "wbr"    => true,
     } of String => Bool
   end
 
@@ -398,8 +396,7 @@ module HTML5
 
     # top returns the most recently pushed node, or nil
     def top
-      return @nodes[@nodes.size - 1] if @nodes.size > 0
-      nil
+      @nodes.size > 0 ? @nodes[@nodes.size - 1] : nil
     end
 
     # index returns the index of the top-most occurence of n in the stack, or -1
@@ -458,8 +455,7 @@ module HTML5
     end
 
     def top
-      return @ims[@ims.size - 1] if @ims.size > 0
-      nil
+      @ims.size > 0 ? @ims[@ims.size - 1] : nil
     end
 
     forward_missing_to @ims

@@ -123,19 +123,19 @@ module HTML5
           when .default?
             # No-op
           when .list_item?
-            return -1 if [Atom::Ol, Atom::Ul].includes?(tag_atom)
+            return -1 if {Atom::Ol, Atom::Ul}.includes?(tag_atom)
           when .button?
             return -1 if tag_atom == Atom::Button
           when .table?
-            return -1 if [Atom::Html, Atom::Table, Atom::Template].includes?(tag_atom)
+            return -1 if {Atom::Html, Atom::Table, Atom::Template}.includes?(tag_atom)
           when .select?
-            return -1 unless [Atom::Optgroup, Atom::Option].includes?(tag_atom)
+            return -1 unless {Atom::Optgroup, Atom::Option}.includes?(tag_atom)
           else
             raise HTMLException.new("unreachable")
           end
         end
 
-        if [Scope::Default, Scope::ListItem, Scope::Button].includes?(s)
+        if s.default? || s.list_item? || s.button?
           DEFAULT_SCOPE_STOP_TAGS[oe[i].namespace]?.try &.each do |t|
             return -1 if t == tag_atom
           end
@@ -157,17 +157,17 @@ module HTML5
         tag_atom = @oe[i].data_atom
         case s
         when .table?
-          if [Atom::Html, Atom::Table, Atom::Template].includes?(tag_atom)
+          if {Atom::Html, Atom::Table, Atom::Template}.includes?(tag_atom)
             self.oe = @oe[...i + 1]
             break
           end
         when .table_row?
-          if [Atom::Html, Atom::Tr, Atom::Template].includes?(tag_atom)
+          if {Atom::Html, Atom::Tr, Atom::Template}.includes?(tag_atom)
             self.oe = @oe[...i + 1]
             break
           end
         when .table_body?
-          if [Atom::Html, Atom::Tbody, Atom::Tfoot, Atom::Thead, Atom::Template].includes?(tag_atom)
+          if {Atom::Html, Atom::Tbody, Atom::Tfoot, Atom::Thead, Atom::Template}.includes?(tag_atom)
             self.oe = @oe[...i + 1]
             break
           end
@@ -196,9 +196,9 @@ module HTML5
       (@oe.size - 1).downto(0) do |i0|
         i = i0
         n = @oe[i0]
-        break unless n.type == NodeType::Element
-        if [Atom::Dd, Atom::Dt, Atom::Li, Atom::Optgroup, Atom::Option, Atom::P, Atom::Rb,
-            Atom::Rp, Atom::Rt, Atom::Rtc].includes?(n.data_atom)
+        break unless n.type.element?
+        if {Atom::Dd, Atom::Dt, Atom::Li, Atom::Optgroup, Atom::Option, Atom::P, Atom::Rb,
+            Atom::Rp, Atom::Rt, Atom::Rtc}.includes?(n.data_atom)
           exceptions.each do |except|
             if n.data == except
               self.oe = @oe[...i0 + 1]
@@ -216,14 +216,14 @@ module HTML5
     # of open elements if it is an element node.
     def add_child(n : Node)
       should_foster_parent ? foster_parent(n) : top().append_child(n)
-      (@oe << n) if n.type == NodeType::Element
+      (@oe << n) if n.type.element?
     end
 
     # should_foster_parent returns whether the next node to be added should be
     # foster parented.
     def should_foster_parent
-      return [Atom::Table, Atom::Tbody, Atom::Tfoot,
-              Atom::Thead, Atom::Tr].includes?(top().data_atom) if @foster_parenting
+      return {Atom::Table, Atom::Tbody, Atom::Tfoot,
+              Atom::Thead, Atom::Tr}.includes?(top().data_atom) if @foster_parenting
       false
     end
 
@@ -268,7 +268,7 @@ module HTML5
         prev = parent.last_child
       end
 
-      if (p = prev) && (p.type == NodeType::Text) && (n.type == NodeType::Text)
+      if (p = prev) && p.type.text? && n.type.text?
         p.data += n.data
         return
       end
@@ -287,7 +287,7 @@ module HTML5
       end
 
       t = top()
-      if (n = t.last_child) && (n.type == NodeType::Text)
+      if (n = t.last_child) && n.type.text?
         n.data += text
         return
       end
@@ -317,8 +317,8 @@ module HTML5
       identical_elements = 0
       (@afe.size - 1).downto(0) do |i|
         n = @afe[i]
-        break if n.type == NodeType::ScopeMarker
-        next unless n.type == NodeType::Element
+        break if n.type.scope_marker?
+        next unless n.type.element?
         next unless n.namespace.empty?
         next unless n.data_atom == tag_atom
         next unless n.attr.size == attr.size
@@ -347,16 +347,16 @@ module HTML5
     # Section 12.2.4.3.
     def clear_active_formatting_elements
       loop do
-        return if (n = @afe.pop) && (@afe.size == 0 || n.type == NodeType::ScopeMarker)
+        return if (n = @afe.pop) && (@afe.size == 0 || n.type.scope_marker?)
       end
     end
 
     # Section 12.2.4.3.
     def reconstruct_active_formatting_elements
       if (n = @afe.top)
-        return if n.type == NodeType::ScopeMarker || @oe.index(n) != -1
+        return if n.type.scope_marker? || @oe.index(n) != -1
         i = @afe.size - 1
-        while n.type != NodeType::ScopeMarker && @oe.index(n) == -1
+        while !n.type.scope_marker? && @oe.index(n) == -1
           if i == 0
             i = -1
             break
@@ -464,12 +464,12 @@ module HTML5
       return false if n.namespace.empty?
 
       if ParserHelper.mathml_text_integration_point(n)
-        return false if token.type == TokenType::StartTag && ![Atom::Mglyph, Atom::Malignmark].includes?(token.data_atom)
-        return false if token.type == TokenType::Text
+        return false if token.type.start_tag? && !{Atom::Mglyph, Atom::Malignmark}.includes?(token.data_atom)
+        return false if token.type.text?
       end
-      return false if n.namespace == "math" && n.data_atom == Atom::AnnotationXml && token.type == TokenType::StartTag && token.data_atom == Atom::Svg
-      return false if ParserHelper.html_integration_point(n) && [TokenType::StartTag, TokenType::Text].includes?(token.type)
-      return false if token.type == TokenType::Error
+      return false if n.namespace == "math" && n.data_atom == Atom::AnnotationXml && token.type.start_tag? && token.data_atom == Atom::Svg
+      return false if ParserHelper.html_integration_point(n) && (token.type.start_tag? || token.type.text?)
+      return false if token.type.error?
       true
     end
 
@@ -488,7 +488,7 @@ module HTML5
 
     # runs the current token through the parsing routines until it is consumed.
     def parse_current_token
-      if token.type == TokenType::SelfClosingTag
+      if token.type.self_closing_tag?
         @has_self_closing_token = true
         @token.type = TokenType::StartTag
       end
@@ -498,10 +498,8 @@ module HTML5
         consumed = in_foreign_content() ? ParserHelper.parse_foreign_content(self) : @im.call(self)
       end
 
-      if @has_self_closing_token
-        # This is a parser error, but ignore it
-        @has_self_closing_token = false
-      end
+      # This is a parser error, but ignore it
+      @has_self_closing_token &&= false
     end
 
     def parse
@@ -514,13 +512,13 @@ module HTML5
         # read adn parse the next token.
         tokenizer.next
         @token = tokenizer.token
-        if token.type == TokenType::Error
+        if token.type.error?
           if (exception = tokenizer.exception?)
             raise exception if !exception.is_a?(IO::EOFError)
           end
         end
         parse_current_token
-        break if (token.type == TokenType::Error && tokenizer.eof?)
+        break if (token.type.error? && tokenizer.eof?)
       end
       nil
     end
@@ -538,11 +536,11 @@ module HTML5
         return
       end
       # Steps 3-5. The out loop
-      8.times do |i|
+      8.times do
         # Step 6. Find the formatting element.
         formatting_element : Node? = nil
         (afe.size - 1).downto(0) do |j|
-          break if afe[j].type == NodeType::ScopeMarker
+          break if afe[j].type.scope_marker?
           if afe[j].data_atom == atom
             formatting_element = afe[j]
             break
