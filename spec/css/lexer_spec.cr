@@ -143,7 +143,7 @@ module CSS
       loop do
         tok = l.token
         tokens << tok
-        break if [TokenType::Error, TokenType::EOF].includes?(tok.type)
+        break if tok.type.error? || tok.type.eof?
       end
       fail "case=#{i}:'#{t[0]}' wanted: #{t[1].size} tokens, got: #{tokens.size}" unless t[1].size == tokens.size
       tokens.should eq(t[1])

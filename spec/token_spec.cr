@@ -476,7 +476,7 @@ module HTML5
         loop do
           tt = z.next
           tokenized.write(z.raw)
-          break if tt == TokenType::Error
+          break if tt.error?
         rescue ex
           tokenized.write(z.raw)
           fail "#{test.desc}: unexpected exception: #{ex.message}" if ex.message != "max buffer exceeded"
@@ -501,7 +501,7 @@ module HTML5
       loop do
         tt = z.next
         parsed.write(z.raw)
-        break if tt == TokenType::Error
+        break if tt.error?
       end
       got = parsed.to_s
       fail "#{test.desc}: reassembled html: got #{got}, want: #{test.html}" unless got == test.html
@@ -525,7 +525,7 @@ module HTML5
       when .start_tag?, .end_tag?
         tn, _ = z.tag_name
         if tn.try &.size == 1 && tn.try &.[0] == 'a'.ord
-          if tt == TokenType::StartTag
+          if tt.start_tag?
             depth += 1
           else
             depth -= 1
