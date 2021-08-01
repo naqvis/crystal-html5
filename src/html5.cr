@@ -14,7 +14,7 @@
 # Parsing is done by calling `HTML5.parse` with either a String containing HTML
 # or an IO instance. `HTML5.parse` returns a document root as `HTML5::Node` instance.
 module HTML5
-  VERSION = "0.3.0"
+  VERSION = "0.4.0"
 
   class HTMLException < Exception
   end
