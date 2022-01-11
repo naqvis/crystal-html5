@@ -93,7 +93,7 @@ module HTML5
   end
 
   # Tokenizer returns a stream of HTML Tokens
-  private class Tokenizer
+  class Tokenizer
     # r is teh source of HTML of text
     @r : IO
     # tt is TokenType of the current token
