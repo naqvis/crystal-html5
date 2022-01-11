@@ -10,7 +10,7 @@ module HTML5
     "svg"  => [Atom::Desc, Atom::ForeignObject, Atom::Title],
   }
 
-  private enum Scope
+  enum Scope
     Default
     ListItem
     Button
@@ -22,7 +22,7 @@ module HTML5
 
   # A parser implements the HTML5 parsing algorithm:
   # https://html.spec.whatwg.org/multipage/syntax.html#tree-construction
-  private class Parser
+  class Parser
     # tokenizer provides the tokens for the parser
     protected property tokenizer : Tokenizer
     # token is the most recently used Token
