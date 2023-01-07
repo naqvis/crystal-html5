@@ -35,16 +35,16 @@ module CSS
     def initialize(@sel_seq : SelectorSequence, @combs = Array(CombinatorSelector).new)
     end
 
-    def select(n : HTML5::Node, matched = [] of HTML5::Node) : Array(HTML5::Node)
-      matched = @sel_seq.select(n, matched)
+    def select(n : HTML5::Node, selected = [] of HTML5::Node) : Array(HTML5::Node)
+      selected = @sel_seq.select(n, selected)
       @combs.each do |comb|
         comb_matched = [] of HTML5::Node
-        matched.each do |m|
+        selected.each do |m|
           comb_matched = comb.select(m, comb_matched)
         end
-        matched = comb_matched
+        selected = comb_matched
       end
-      matched
+      selected
     end
   end
 
@@ -107,38 +107,38 @@ module CSS
     def initialize(@combinator : TokenType, @sel_seq : SelectorSequence)
     end
 
-    def select(n : HTML5::Node, matched = [] of HTML5::Node) : Array(HTML5::Node)
+    def select(n : HTML5::Node, selected = [] of HTML5::Node) : Array(HTML5::Node)
       case @combinator
       when .greater?
         child = n.first_child
         while (child)
-          matched << child if @sel_seq.matches(child) && !child.parent.nil?
+          selected << child if @sel_seq.matches(child) && !child.parent.nil?
           child = child.next_sibling
         end
       when .tilde?
         sibl = n.next_sibling
         while (sibl)
-          matched << sibl if @sel_seq.matches(sibl) && !matched.includes?(sibl)
+          selected << sibl if @sel_seq.matches(sibl) && !selected.includes?(sibl)
           sibl = sibl.next_sibling
         end
       when .plus?
         sibl = n.next_sibling
         while (sibl)
-          matched << sibl if @sel_seq.matches(sibl)
+          selected << sibl if @sel_seq.matches(sibl)
           # check matches against only the first element
           break if sibl.element?
           sibl = sibl.next_sibling
         end
       when .not?
-        matched << n if !@sel_seq.matches(n)
+        selected << n if !@sel_seq.matches(n)
       else
         child = n.first_child
         while (child)
-          matched = @sel_seq.select(child, matched)
+          selected = @sel_seq.select(child, selected)
           child = child.next_sibling
         end
       end
-      matched
+      selected
     end
   end
 

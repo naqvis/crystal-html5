@@ -269,8 +269,8 @@ module CSS
       raise CSSException.new("expected ' or \" before calling parse_string") unless ['\'', '"'].includes?(schar)
       loop do
         case r = self.next
-        when EOF              then raise ("unmatched string quote")
-        when '\n', '\r', '\f' then raise ("invalid unescaped string character")
+        when EOF              then raise("unmatched string quote")
+        when '\n', '\r', '\f' then raise("invalid unescaped string character")
         when '\\'
           case self.peek
           when '\n', '\f' then self.next
