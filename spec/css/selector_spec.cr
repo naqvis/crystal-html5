@@ -73,4 +73,48 @@ HTML
       run_test(i, t[0], SelectorSequence.new(t[2]), t[1])
     end
   end
+
+  it "Test :scope MDN example" do
+    # Exact HTML from MDN documentation
+    html = %q(
+      <div id="context">
+        <div id="element-1">
+          <div id="element-1-1"></div>
+          <div id="element-1-2"></div>
+        </div>
+        <div id="element-2">
+          <div id="element-2-1"></div>
+        </div>
+      </div>
+    )
+
+    # Parse and get context element (equivalent to document.getElementById("context"))
+    doc = HTML5.parse(html)
+    context = doc.css("#context").first
+
+    # Execute equivalent of: context.querySelectorAll(":scope > div")
+    selected = context.css(":scope > div")
+
+    # Verify we get element-1 and element-2 (direct children only)
+    result_ids = selected.map { |el| el["id"]?.try(&.val) || "" }
+    expected_ids = ["element-1", "element-2"]
+
+    fail "Expected IDs: #{expected_ids}, got: #{result_ids}" unless result_ids == expected_ids
+
+    # Additional test: verify :scope matches context itself
+    scope_match = context.css(":scope")
+    fail "Expected 1 :scope match, got #{scope_match.size}" unless scope_match.size == 1
+    fail "Expected :scope to match context element" unless scope_match.first == context
+
+    # Test that nested elements are NOT selected by :scope > div
+    all_divs = context.css("div")
+    direct_children = context.css(":scope > div")
+
+    # Should have more total divs than direct children
+    fail "Should have more total divs (#{all_divs.size}) than direct children (#{direct_children.size})" unless all_divs.size > direct_children.size
+
+    # Verify nested elements exist but are not in direct children
+    nested_element = doc.css("#element-1-1").first
+    fail "Nested element should not be in direct children" if direct_children.includes?(nested_element)
+  end
 end

@@ -1,10 +1,12 @@
 # Crystal-HTML5
+
 ![CI](https://github.com/naqvis/crystal-html5/workflows/CI/badge.svg)
 [![GitHub release](https://img.shields.io/github/release/naqvis/crystal-html5.svg)](https://github.com/naqvis/crystal-html5/releases)
 [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://naqvis.github.io/crystal-html5/)
 
 Crystal-HTML5 shard is a **Pure Crystal** implementation of an **HTML5-compliant** `Tokenizer` and `Parser`.
 The relevant specifications include:
+
 - [https://html.spec.whatwg.org/multipage/syntax.html](https://html.spec.whatwg.org/multipage/syntax.html)
 - [https://html.spec.whatwg.org/multipage/syntax.html#tokenization](https://html.spec.whatwg.org/multipage/syntax.html#tokenization)
 
@@ -26,8 +28,6 @@ Parsing a fragment is done by calling `HTML5.parse_fragment` with either a Strin
 or an IO instance. If the fragment is the InnerHTML for an existing element, pass that element in context.
 `HTML5.parse_fragment` returns a list of `HTML5::Node` that were found.
 
-
-
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
@@ -43,6 +43,7 @@ or an IO instance. If the fragment is the InnerHTML for an existing element, pas
 ## Usage
 
 ### Example 1: Process each anchor `<a>` node.
+
 ```crystal
 require "html5"
 
@@ -104,6 +105,7 @@ process(doc)
 ```
 
 ### Example 2: Parse an HTML or Fragment of HTML
+
 ```crystal
 require "html5"
 
@@ -141,6 +143,7 @@ process(doc)
 ```
 
 ### Example 3: Render `HTML5::Node` to HTML
+
 ```crystal
 require "html5"
 
@@ -153,6 +156,7 @@ doc.render(STDOUT)
 ```
 
 ### Example 3: XPath Query
+
 ```crystal
 require "html5"
 
@@ -179,6 +183,7 @@ v = html.xpath_float("//a")
 Refer to specs for more sample usages. And refer to [Crystal XPath2 Shard](https://github.com/naqvis/crystal-xpath2) for details of what functions and functionality is supported by XPath implementation.
 
 ### Example 4: CSS Selector
+
 ```crystal
 html = <<-HTML
   <html>
@@ -237,7 +242,13 @@ p node.css(%q{a[href$=".png"]}).map(&.["id"].val).to_a # => ["a2"]
 
 # find all a tags inside <p id=p3>, which href contain `html`
 p node.css(%q{p[id=p3] > a[href*="html"]}).map(&.["id"].val).to_a # => ["a1"]
+
+# :scope pseudo-class - matches the element on which css() was called
+element = node.css("#p3").first
+p element.css(":scope").map(&.["id"].val).to_a        # => ["p3"] (the element itself)
+p element.css(":scope > a").map(&.["id"].val).to_a    # => ["a1", "a2"] (direct children)
 ```
+
 Refer to `spec/css` specs for more sample usages.
 
 ## Development

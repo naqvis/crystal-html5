@@ -1,8 +1,8 @@
 module CSS
-  def self.compile(expr : String) : Selector
+  def self.compile(expr : String, scope_node : HTML5::Node? = nil) : Selector
     lexer = Lexer.new(expr)
     spawn { lexer.parse_next }
-    selectors = Compiler.new(lexer).compile_selectors_group
+    selectors = Compiler.new(lexer, scope_node).compile_selectors_group
     Selector.new(selectors)
   end
 
@@ -17,11 +17,11 @@ module CSS
   end
 
   private struct Compiler
-    def initialize(@t : TokenEmitter, @first_peek : Bool, @peek_tok : Token)
+    def initialize(@t : TokenEmitter, @scope_node : HTML5::Node?, @first_peek : Bool, @peek_tok : Token)
     end
 
-    def self.new(t : TokenEmitter, first_peek : Bool = true)
-      new(t, first_peek, Token.new(TokenType::EOF, "", 0))
+    def self.new(t : TokenEmitter, scope_node : HTML5::Node? = nil, first_peek : Bool = true)
+      new(t, scope_node, first_peek, Token.new(TokenType::EOF, "", 0))
     end
 
     def peek
@@ -199,6 +199,9 @@ module CSS
           when "only-of-type"  then return OnlyChildPseudo.new(true)
           when "root"          then return MatcherFunc.new(->CSS.root(HTML5::Node))
           when "input"         then return MatcherFunc.new(->CSS.input(HTML5::Node))
+          when "scope"
+            raise CSSException.new(":scope requires element context") if @scope_node.nil?
+            return ScopeMatcher.new(@scope_node.not_nil!)
           else
             raise CSSException.new("Unsupported pseudo type : #{t.val}")
           end

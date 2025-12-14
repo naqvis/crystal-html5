@@ -4,7 +4,7 @@ module HTML5
   class Node
     # Searches this node for CSS Selector *expression*. Returns all of the matched `HTML5::Node`
     def css(expression : String) : Array(Node)
-      comp = CSS.compile(expression)
+      comp = CSS.compile(expression, scope_node: self)
       comp.select(self)
     end
   end
@@ -374,5 +374,16 @@ module CSS
 
   protected def self.input(n : HTML5::Node) : Bool
     n.element? && {"input", "select", "textarea", "button"}.includes?(n.data)
+  end
+
+  private class ScopeMatcher
+    include Matcher
+
+    def initialize(@scope_node : HTML5::Node)
+    end
+
+    def matches(n : HTML5::Node) : Bool
+      n == @scope_node
+    end
   end
 end

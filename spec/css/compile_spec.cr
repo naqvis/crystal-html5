@@ -687,4 +687,41 @@ module CSS
       run_test(i, t[0], sel, t[2])
     end
   end
+
+  it "Test :scope pseudo-class" do
+    tests = [
+      {
+        %q(<div id="root"><p>child</p><span>other</span></div>),
+        "#root",
+        ":scope",
+        ["<div id=\"root\"><p>child</p><span>other</span></div>"],
+      },
+      {
+        %q(<div id="root"><p>child</p><span>other</span></div>),
+        "#root",
+        ":scope > p",
+        ["<p>child</p>"],
+      },
+      {
+        %q(<div id="root"><p>child</p><span>other</span></div>),
+        "#root",
+        ":scope > *",
+        ["<p>child</p>", "<span>other</span>"],
+      },
+      {
+        %q(<div id="root"><div><p>nested</p></div></div>),
+        "#root",
+        ":scope p",
+        ["<p>nested</p>"],
+      },
+    ]
+
+    tests.each do |t|
+      html, root_selector, scope_selector, expected = t
+      doc = HTML5.parse(html)
+      root = doc.css(root_selector).first
+      result = root.css(scope_selector).map(&.to_html(true))
+      fail "root: #{root_selector}, scope: #{scope_selector}, expected: #{expected}, got: #{result}" unless result == expected
+    end
+  end
 end
