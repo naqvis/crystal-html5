@@ -29,7 +29,7 @@ module HTML5
   # unescaped (it looks like "a<b" rather than "a&lt;b").
   #
   # Namespace is only used by the parser, not the tokenizer.
-  class Attribute
+  struct Attribute
     property namespace : String
     property key : String
     property val : String
@@ -400,10 +400,11 @@ module HTML5
     end
 
     # index returns the index of the top-most occurence of n in the stack, or -1
-    # if n is not present
+    # if n is not present. Searches from the top since elements are usually near
+    # the top of the stack.
     def index(n : Node)
-      @nodes.each_with_index do |s, i|
-        return i if s == n
+      (@nodes.size - 1).downto(0) do |i|
+        return i if @nodes.unsafe_fetch(i).same?(n)
       end
       -1
     end
@@ -424,7 +425,8 @@ module HTML5
     # removes a node from the stack. It is a no-op if n is not present
     def remove(node : Node?)
       if (n = node)
-        @nodes.reject! { |x| x == n }
+        idx = index(n)
+        @nodes.delete_at(idx) if idx != -1
       end
     end
 

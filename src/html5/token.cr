@@ -210,62 +210,79 @@ module HTML5
     # from r into buf if necessary. buf[raw.start...raw.end] remains a contiguous byte
     # slice that holds all the bytes read so far for the current token.
     # It sets err if the underlying reader returns an error.
+    @[AlwaysInline]
     private def read_byte
-      if @raw.end >= @buf.size
-        # Our buffer is exhausted and we have to read from IO. Check if the previous read
-        # resulted in an error
-        if @read_err
-          @eof = true
-          return 0_u8
-        end
+      # Fast path: byte available in buffer
+      if @raw.end < @buf.size
+        x = @buf.to_unsafe[@raw.end]
+        @raw.end += 1
+        raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
+        return x
+      end
+      read_byte_slow
+    end
 
-        # We copy buf[raw.start...raw.end] to the beginning of buf. If the size of
-        # raw.end - raw.start is more than half the size of the buf, then we
-        # allocate a new buffer before copy
-        c = @buf.size
-        c = 4096 if c == 0
-        d = @raw.end - @raw.start
-        if 2*d > c
-          buf1 = Bytes.new(2*c)
+    # Slow path: buffer exhausted, need to refill from IO
+    private def read_byte_slow : UInt8
+      # Check if the previous read resulted in an error
+      if @read_err
+        @eof = true
+        return 0_u8
+      end
+
+      # We copy buf[raw.start...raw.end] to the beginning of buf. If the size of
+      # raw.end - raw.start is more than half the size of the buf, then we
+      # allocate a new buffer before copy
+      c = @buf.size
+      c = 32768 if c == 0
+      d = @raw.end - @raw.start
+      if 2*d > c
+        buf1 = Bytes.new(2*c)
+        buf1.copy_from(@buf[@raw.start...@raw.end].to_unsafe, d) if @buf.size > 0
+      else
+        # Reuse existing buffer if it's large enough — just shift data to front
+        if c <= @buf.size && @raw.start > 0
+          buf1 = @buf
+          buf1.to_unsafe.copy_from(@buf[@raw.start...@raw.end].to_unsafe, d) if d > 0
         else
           buf1 = Bytes.new(c)
+          buf1.copy_from(@buf[@raw.start...@raw.end].to_unsafe, d) if @buf.size > 0
         end
-        buf1.copy_from(@buf[@raw.start...@raw.end].to_unsafe, d) if @buf.size > 0
-        if (x = @raw.start) && (x != 0)
-          # Adjust the data/attr spans to refer to the same contents after copy.
-          @data.start -= x
-          @data.end -= x
-          @pending_attr[0].start -= x
-          @pending_attr[0].end -= x
-          @pending_attr[1].start -= x
-          @pending_attr[1].end -= x
-
-          @attr.each do |a|
-            a[0].start -= x
-            a[0].end -= x
-            a[1].start -= x
-            a[1].end -= x
-          end
-        end
-        @raw.start, @raw.end, @buf = 0, d, buf1[...d]
-        # Now that we have copied the live bytes to the start of the buffer,
-        # we read from IO r into the remainder.
-        n = 0
-        begin
-          # n = @r.read(buf1[d...])
-          n = read_at_least_one_byte(buf1[d...])
-        rescue ex
-          @exception = ex
-        end
-
-        if n == 0
-          @read_err = true
-          @eof = true
-          return 0_u8
-        end
-        @buf = buf1[...d + n]
       end
-      x = @buf[@raw.end]
+      if (x = @raw.start) && (x != 0)
+        # Adjust the data/attr spans to refer to the same contents after copy.
+        @data.start -= x
+        @data.end -= x
+        @pending_attr[0].start -= x
+        @pending_attr[0].end -= x
+        @pending_attr[1].start -= x
+        @pending_attr[1].end -= x
+
+        @attr.each do |a|
+          a[0].start -= x
+          a[0].end -= x
+          a[1].start -= x
+          a[1].end -= x
+        end
+      end
+      @raw.start, @raw.end, @buf = 0, d, buf1[...d]
+      # Now that we have copied the live bytes to the start of the buffer,
+      # we read from IO r into the remainder.
+      n = 0
+      begin
+        n = read_at_least_one_byte(buf1[d...])
+      rescue ex
+        @exception = ex
+      end
+
+      if n == 0
+        @read_err = true
+        @eof = true
+        return 0_u8
+      end
+      @buf = buf1[...d + n]
+
+      x = @buf.to_unsafe[@raw.end]
       @raw.end += 1
       raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
       x
@@ -290,6 +307,17 @@ module HTML5
     # skips past any white space
     private def skip_white_space
       return if @eof
+      # Fast scan through buffer
+      while @raw.end < @buf.size
+        case @buf.to_unsafe[@raw.end].unsafe_chr
+        when ' ', '\n', '\r', '\t', '\f'
+          @raw.end += 1
+          raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
+        else
+          return
+        end
+      end
+      # Buffer exhausted — continue with read_byte
       loop do
         c = read_byte
         return if @eof
@@ -743,20 +771,37 @@ module HTML5
     # has already been consumed.
     private def read_tag_name
       @data.start = @raw.end - 1
+      # Fast scan through buffer for tag name delimiter
+      while @raw.end < @buf.size
+        c = @buf.to_unsafe[@raw.end]
+        case c.unsafe_chr
+        when ' ', '\n', '\r', '\t', '\f'
+          @data.end = @raw.end
+          @raw.end += 1
+          return
+        when '/', '>'
+          @data.end = @raw.end
+          return
+        else
+          @raw.end += 1
+          raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
+        end
+      end
+      # Fell through — need to refill buffer and continue byte-by-byte
       loop do
         c = read_byte
         if @eof
           @data.end = @raw.end
           return
         end
-
-        if [' ', '\n', '\r', '\t', '\f'].includes?(c.unsafe_chr)
+        case c.unsafe_chr
+        when ' ', '\n', '\r', '\t', '\f'
           @data.end = @raw.end - 1
-          break
-        elsif ['/', '>'].includes?(c.unsafe_chr)
+          return
+        when '/', '>'
           @raw.end -= 1
           @data.end = @raw.end
-          break
+          return
         end
       end
     end
@@ -764,6 +809,23 @@ module HTML5
     # read_tag_attr_key sets pending_attr[0] to the "k" in "<div k=v>".
     private def read_tag_attr_key
       @pending_attr[0].start = @raw.end
+      # Fast scan through buffer
+      while @raw.end < @buf.size
+        c = @buf.to_unsafe[@raw.end]
+        case c.unsafe_chr
+        when ' ', '\n', '\r', '\t', '\f', '/'
+          @pending_attr[0].end = @raw.end
+          @raw.end += 1
+          return
+        when '=', '>'
+          @pending_attr[0].end = @raw.end
+          return
+        else
+          @raw.end += 1
+          raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
+        end
+      end
+      # Fell through — refill and continue
       loop do
         c = read_byte
         if @eof
@@ -803,19 +865,48 @@ module HTML5
         return
       when '\'', '"'
         @pending_attr[1].start = @raw.end
+        # Fast scan for closing quote through buffer
+        quote_byte = quote
+        while @raw.end < @buf.size
+          if @buf.to_unsafe[@raw.end] == quote_byte
+            @pending_attr[1].end = @raw.end
+            @raw.end += 1
+            return
+          end
+          @raw.end += 1
+          raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
+        end
+        # Fell through — refill and continue
         loop do
           c = read_byte
           if @eof
             @pending_attr[1].end = @raw.end
             return
           end
-          if c == quote
+          if c == quote_byte
             @pending_attr[1].end = @raw.end - 1
             return
           end
         end
       else
         @pending_attr[1].start = @raw.end - 1
+        # Fast scan for unquoted value delimiter
+        while @raw.end < @buf.size
+          c = @buf.to_unsafe[@raw.end]
+          case c.unsafe_chr
+          when ' ', '\n', '\r', '\t', '\f'
+            @pending_attr[1].end = @raw.end
+            @raw.end += 1
+            return
+          when '>'
+            @pending_attr[1].end = @raw.end
+            return
+          else
+            @raw.end += 1
+            raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
+          end
+        end
+        # Fell through — refill and continue
         loop do
           c = read_byte
           if @eof
@@ -867,9 +958,23 @@ module HTML5
       @convert_nul = false
 
       loop do
-        c = read_byte
-        break if @eof
-        next unless c.unsafe_chr == '<'
+        # Fast scan through buffer looking for '<'
+        found_lt = false
+        while @raw.end < @buf.size
+          if @buf.to_unsafe[@raw.end] == '<'.ord
+            @raw.end += 1
+            found_lt = true
+            break
+          end
+          @raw.end += 1
+          raise MaxBufferExceeded.new if @max_buf > 0 && @raw.end - @raw.start >= @max_buf
+        end
+        unless found_lt
+          # Buffer exhausted — use read_byte to refill
+          c = read_byte
+          break if @eof
+          next unless c.unsafe_chr == '<'
+        end
         # Check if the '<' we have just read is part of a tag, comment
         # or doctype. If not, it's part of the accumulated text token.
         c = read_byte
@@ -969,10 +1074,19 @@ module HTML5
         @data.start = @raw.end
         @data.end = @raw.end
         s = HTML5.convert_new_lines(s)
-        if (@convert_nul || @tt.comment?) && String.new(s).includes?(NUL)
-          str = String.new(s)
-          str = str.gsub(NUL, REPLACEMENT)
-          s = str.to_slice
+        if (@convert_nul || @tt.comment?)
+          has_nul = false
+          s.each do |b|
+            if b == 0_u8
+              has_nul = true
+              break
+            end
+          end
+          if has_nul
+            str = String.new(s)
+            str = str.gsub(NUL, REPLACEMENT)
+            s = str.to_slice
+          end
         end
         s = HTML5.unescape(s, false) unless @text_is_raw
         return s
@@ -1022,10 +1136,13 @@ module HTML5
         t.data = String.new(text() || Bytes.empty)
       when .start_tag?, .self_closing_tag?, .end_tag?
         name, more_attr = tag_name
-        while more_attr
-          key, val, more_attr = tag_attr
-          if (k = key) && (v = val)
-            t.attr << Attribute.new("", Atom.string(k), String.new(v))
+        if more_attr
+          t.attr = Array(Attribute).new(@attr.size - @n_attr_returned)
+          while more_attr
+            key, val, more_attr = tag_attr
+            if (k = key) && (v = val)
+              t.attr << Attribute.new("", Atom.string(k), String.new(v))
+            end
           end
         end
         if (n = name) && (a = Atom.lookup(n)) && (a != Atom::Atom.zero)
@@ -1049,6 +1166,16 @@ module HTML5
   # converts "\r" and "\r\n" in s to "\n".
   # The conversion happens in place, but the resulting slice may be shorter
   protected def self.convert_new_lines(slice)
+    # Fast path: skip copy if no \r present
+    has_cr = false
+    slice.each do |c|
+      if c == '\r'.ord
+        has_cr = true
+        break
+      end
+    end
+    return slice unless has_cr
+
     s = slice.dup
     s.each_with_index do |c, i|
       next unless c == '\r'.ord

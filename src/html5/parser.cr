@@ -304,14 +304,17 @@ module HTML5
         type: NodeType::Element,
         data_atom: @token.data_atom,
         data: @token.data,
-        attr: @token.attr.clone
+        attr: @token.attr.dup
       ))
     end
 
     # Section 12.2.4.3
     def add_formatting_element
-      tag_atom, attr = @token.data_atom, @token.attr.clone
+      tag_atom = @token.data_atom
+      # Save a reference to the attrs before add_element transfers them
       add_element
+      # Get the attrs from the node that was just added (top of oe stack)
+      node_attr = top().attr
 
       # Implement the Noah's Ark clause, but with three per family instead of two.
       identical_elements = 0
@@ -321,10 +324,10 @@ module HTML5
         next unless n.type.element?
         next unless n.namespace.empty?
         next unless n.data_atom == tag_atom
-        next unless n.attr.size == attr.size
+        next unless n.attr.size == node_attr.size
 
         continue = n.attr.each do |t0|
-          found = attr.each do |t1|
+          found = node_attr.each do |t1|
             if t0.key == t1.key && t0.namespace == t1.namespace && t0.val == t1.val
               # Found a match for this attribute, continue with the next attribute
               break true

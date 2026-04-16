@@ -71,15 +71,24 @@ module CSS
     def initialize(@matchers = Array(Matcher).new)
     end
 
+    # Single-pass recursive DFS: check node, then recurse into children.
+    # Uses a Set for O(1) deduplication within this tree walk.
     def select(n : HTML5::Node, selected = [] of HTML5::Node) : Array(HTML5::Node)
-      selected << n if matches(n) && !selected.includes?(n)
+      seen = Set(UInt64).new
+      select_recursive(n, selected, seen)
+      selected
+    end
+
+    private def select_recursive(n : HTML5::Node, selected : Array(HTML5::Node), seen : Set(UInt64))
+      if matches(n) && !seen.includes?(n.object_id)
+        selected << n
+        seen << n.object_id
+      end
       c = n.first_child
-      while (c)
-        selected << c if matches(c)
-        selected = self.select(c, selected)
+      while c
+        select_recursive(c, selected, seen)
         c = c.next_sibling
       end
-      selected
     end
 
     def select1(n : HTML5::Node) : Array(HTML5::Node)
@@ -118,7 +127,8 @@ module CSS
       when .tilde?
         sibl = n.next_sibling
         while (sibl)
-          selected << sibl if @sel_seq.matches(sibl) && !selected.includes?(sibl)
+          # Use object_id check instead of linear scan for dedup
+          selected << sibl if @sel_seq.matches(sibl) && !selected.any? { |s| s.same?(sibl) }
           sibl = sibl.next_sibling
         end
       when .plus?
@@ -132,13 +142,28 @@ module CSS
       when .not?
         selected << n if !@sel_seq.matches(n)
       else
+        # Descendant combinator: use Set for O(1) dedup within this walk
+        seen = Set(UInt64).new
         child = n.first_child
         while (child)
-          selected = @sel_seq.select(child, selected)
+          select_descendants(child, selected, seen)
           child = child.next_sibling
         end
       end
       selected
+    end
+
+    # Recursive descendant selection with O(1) dedup via Set
+    private def select_descendants(n : HTML5::Node, selected : Array(HTML5::Node), seen : Set(UInt64))
+      if @sel_seq.matches(n) && !seen.includes?(n.object_id)
+        selected << n
+        seen << n.object_id
+      end
+      child = n.first_child
+      while child
+        select_descendants(child, selected, seen)
+        child = child.next_sibling
+      end
     end
   end
 
@@ -186,8 +211,18 @@ module CSS
     def matches(n : HTML5::Node) : Bool
       n.attr.each do |a|
         if a.key == @key
+          return false if @values.empty?
+          # Fast path for single value match (common case: class="foo" or id="bar")
+          if @values.size == 1
+            target = @values[0]
+            # Check if the attribute value is exactly the target (no spaces)
+            return a.val == target unless a.val.includes?(' ')
+            # Otherwise scan space-separated tokens without allocating an array
+            return CSS.scan_space_separated(a.val, target)
+          end
+          # Multi-value match: all values must be present
           attr_vals = a.val.split(' ').reject(&.blank?)
-          return false if attr_vals.empty? || @values.empty?
+          return false if attr_vals.empty?
           @values.each do |v|
             return false unless attr_vals.includes?(v)
           end
@@ -339,18 +374,45 @@ module CSS
     end
   end
 
-  protected def self.includes_matcher(got : String, want : String)
-    got.split(' ').each do |s|
-      next if s.empty?
-      return true if s == want
+  # Scan space-separated tokens in a string without allocating.
+  # Returns true if `want` is found as a space-separated token in `got`.
+  protected def self.scan_space_separated(got : String, want : String) : Bool
+    pos = 0
+    while pos < got.size
+      while pos < got.size && got[pos] == ' '
+        pos += 1
+      end
+      break if pos >= got.size
+      token_start = pos
+      while pos < got.size && got[pos] != ' '
+        pos += 1
+      end
+      return true if got[token_start...pos] == want
     end
     false
   end
 
+  # Non-allocating includes matcher: checks if `want` is a space-separated token in `got`
+  protected def self.includes_matcher(got : String, want : String)
+    scan_space_separated(got, want)
+  end
+
+  # Non-allocating dash matcher: checks if any space-separated token in `got`
+  # equals `want` or starts with `want` followed by '-'
   protected def self.dash_matcher(got : String, want : String)
-    got.split(' ').each do |s|
-      next if s.empty?
-      return true if s == want || s.starts_with?("#{want}-")
+    pos = 0
+    while pos < got.size
+      while pos < got.size && got[pos] == ' '
+        pos += 1
+      end
+      break if pos >= got.size
+      token_start = pos
+      while pos < got.size && got[pos] != ' '
+        pos += 1
+      end
+      token = got[token_start...pos]
+      next if token.empty?
+      return true if token == want || (token.size > want.size && token.starts_with?(want) && token[want.size] == '-')
     end
     false
   end

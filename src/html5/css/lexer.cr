@@ -108,9 +108,30 @@ module CSS
 
     def initialize(@s : String, @last = 0, @pos = 0)
       @c = Channel(Token).new(2)
+      @tokens = Array(Token).new
+      @token_pos = 0
+      @buffered = false
+    end
+
+    # Synchronous mode: parse all tokens upfront into a buffer
+    def parse_all
+      @tokens.clear
+      @token_pos = 0
+      @buffered = true
+      parse_next
+      @buffered = false
     end
 
     def token : Token
+      if @tokens.size > 0
+        # Synchronous buffered mode
+        if @token_pos < @tokens.size
+          tok = @tokens[@token_pos]
+          @token_pos += 1
+          return tok
+        end
+        return Token.new(TokenType::EOF, start: @last)
+      end
       @c.receive
     end
 
@@ -135,21 +156,50 @@ module CSS
       raise CSSException.new("nothing to emit at pos #{@pos}") if @last == @pos
       val = @s[@last...@pos]
       val = "-1n" if t.dimension? && val == "-n"
-      @c.send(Token.new(t, val, @last))
+      if @buffered
+        @tokens << Token.new(t, val, @last)
+      else
+        @c.send(Token.new(t, val, @last))
+      end
+      @last = @pos
+    end
+
+    private def emit_buffered(t : TokenType)
+      raise CSSException.new("nothing to emit at pos #{@pos}") if @last == @pos
+      val = @s[@last...@pos]
+      val = "-1n" if t.dimension? && val == "-n"
+      @tokens << Token.new(t, val, @last)
       @last = @pos
     end
 
     def errorf(err) : Nil
-      @c.send(
-        Token.new(TokenType::Error, err || "", @last)
-      )
+      if @buffered
+        @tokens << Token.new(TokenType::Error, err || "", @last)
+      else
+        @c.send(Token.new(TokenType::Error, err || "", @last))
+      end
+    end
+
+    private def errorf_buffered(err) : Nil
+      @tokens << Token.new(TokenType::Error, err || "", @last)
     end
 
     def eof : Nil
       raise CSSException.new("emitted eof without being at eof") unless @pos == @s.size
       raise CSSException.new("emitted eof with unevaluated tokens") unless @last == @pos
 
-      @c.send(Token.new(TokenType::EOF, start: @last))
+      if @buffered
+        @tokens << Token.new(TokenType::EOF, start: @last)
+      else
+        @c.send(Token.new(TokenType::EOF, start: @last))
+      end
+    end
+
+    private def eof_buffered : Nil
+      raise CSSException.new("emitted eof without being at eof") unless @pos == @s.size
+      raise CSSException.new("emitted eof with unevaluated tokens") unless @last == @pos
+
+      @tokens << Token.new(TokenType::EOF, start: @last)
     end
 
     def parse_next

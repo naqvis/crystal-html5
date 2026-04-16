@@ -3,22 +3,22 @@ module HTML5
     extend self
 
     def adjust_attribute_names(aa : Array(Attribute), names : Hash(String, String))
-      aa.each do |a|
-        if (new_name = names[a.key]?)
-          a.key = new_name
+      aa.size.times do |i|
+        if (new_name = names[aa[i].key]?)
+          aa[i] = Attribute.new(aa[i].namespace, new_name, aa[i].val)
         end
       end
     end
 
     def adjust_foreign_attributes(aa : Array(Attribute))
-      aa.each do |a|
+      aa.size.times do |i|
+        a = aa[i]
         next if a.key.empty? || a.key[0] != 'x'
 
         if {"xlink:actuate", "xlink:arcrole", "xlink:href", "xlink:role", "xlink:show",
             "xlink:title", "xlink:type", "xml:base", "xml:lang", "xml:space", "xmlns:xlink"}.includes?(a.key)
           if (j = a.key.index(":"))
-            a.namespace = a.key[...j]
-            a.key = a.key[j + 1..]
+            aa[i] = Attribute.new(a.key[...j], a.key[j + 1..], a.val)
           end
         end
       end

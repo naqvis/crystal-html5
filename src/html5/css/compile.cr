@@ -1,7 +1,7 @@
 module CSS
   def self.compile(expr : String, scope_node : HTML5::Node? = nil) : Selector
     lexer = Lexer.new(expr)
-    spawn { lexer.parse_next }
+    lexer.parse_all
     selectors = Compiler.new(lexer, scope_node).compile_selectors_group
     Selector.new(selectors)
   end

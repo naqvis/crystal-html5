@@ -191,6 +191,16 @@ module HTML5
   # unescape unescapes bytes's entities in-place, so that "a&lt;b" becomes "a<b".
   # attribute should be true if parsing an attribute value.
   protected def unescape(bytes, attribute)
+    # Fast path: return original slice if no '&' present
+    has_amp = false
+    bytes.each do |c|
+      if c == '&'.ord
+        has_amp = true
+        break
+      end
+    end
+    return bytes unless has_amp
+
     b = Bytes.new(bytes.size)
     b.copy_from(bytes.to_unsafe, b.size)
     b.each_with_index do |c, i|
@@ -212,7 +222,21 @@ module HTML5
   end
 
   protected def lower(b)
-    String.new(b).downcase.to_slice
+    # Fast path: check if already lowercase
+    needs_lower = false
+    b.each do |byte|
+      if byte >= 'A'.ord && byte <= 'Z'.ord
+        needs_lower = true
+        break
+      end
+    end
+    return b unless needs_lower
+
+    result = Bytes.new(b.size)
+    b.each_with_index do |byte, i|
+      result[i] = (byte >= 'A'.ord && byte <= 'Z'.ord) ? (byte + 32).to_u8 : byte
+    end
+    result
   end
 
   private ESCAPED_CHARS = "&'<>\"\r"
