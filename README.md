@@ -4,13 +4,13 @@
 [![GitHub release](https://img.shields.io/github/release/naqvis/crystal-html5.svg)](https://github.com/naqvis/crystal-html5/releases)
 [![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://naqvis.github.io/crystal-html5/)
 
-Crystal-HTML5 shard is a **Pure Crystal** implementation of an **HTML5-compliant** `Tokenizer` and `Parser`.
+Crystal-HTML5 shard is a **Pure Crystal** implementation of an **HTML5-compliant** `Tokenizer` and `Parser` with **streaming support**.
 The relevant specifications include:
 
 - [https://html.spec.whatwg.org/multipage/syntax.html](https://html.spec.whatwg.org/multipage/syntax.html)
 - [https://html.spec.whatwg.org/multipage/syntax.html#tokenization](https://html.spec.whatwg.org/multipage/syntax.html#tokenization)
 
-Shard also provides **CSS Selector support** by implementing **W3** [Selectors Level 3](http://www.w3.org/TR/css3-selectors/) specification
+Shard also provides **CSS Selector support** by implementing **W3** [Selectors Level 3](http://www.w3.org/TR/css3-selectors/) specification and **streaming parsing** via both token-level iteration and SAX-style event callbacks.
 
 Tokenization is done by creating a `Tokenizer` for an `IO`. It is the caller
 responsibility to ensure that provided IO provides UTF-8 encoded HTML.
@@ -27,6 +27,10 @@ or an IO instance. `HTML5.parse` returns a document root as `HTML5::Node` instan
 Parsing a fragment is done by calling `HTML5.parse_fragment` with either a String containing fragment of HTML5
 or an IO instance. If the fragment is the InnerHTML for an existing element, pass that element in context.
 `HTML5.parse_fragment` returns a list of `HTML5::Node` that were found.
+
+Streaming is supported at two levels: `HTML5.each_token` / `HTML5.token_iterator` for lightweight token-level
+streaming in constant memory, and `HTML5.stream` for SAX-style event callbacks during full HTML5-compliant
+tree construction.
 
 ## Installation
 
@@ -250,6 +254,86 @@ p element.css(":scope > a").map(&.["id"].val).to_a    # => ["a1", "a2"] (direct 
 ```
 
 Refer to `spec/css` specs for more sample usages.
+
+### Example 5: Streaming — Token-Level
+
+Process HTML as a stream of tokens without building a parse tree. Runs in constant memory regardless of input size.
+
+```crystal
+require "html5"
+
+html = %(<p>Links:</p><ul><li><a href="foo">Foo</a><li><a href="/bar/baz">BarBaz</a></ul>)
+
+# Block-based iteration
+HTML5.each_token(html) do |token|
+  case token.type
+  when .start_tag?
+    print "<#{token.data}>"
+  when .end_tag?
+    print "</#{token.data}>"
+  when .text?
+    print token.data
+  end
+end
+puts
+
+# Pull-based iterator
+HTML5.token_iterator(html).each do |token|
+  if token.type.start_tag? && token.data == "a"
+    token.attr.each do |a|
+      puts a.val if a.key == "href"
+    end
+  end
+end
+# Output
+# foo
+# /bar/baz
+```
+
+Both `each_token` and `token_iterator` accept an `IO` or a `String`. The token stream reflects the raw markup — no implicit tags or tree corrections are applied.
+
+### Example 6: Streaming — SAX-Style Events
+
+Get incremental callbacks as the HTML5 parser constructs the document tree. Implement the `HTML5::StreamingHandler` module and pass it to `HTML5.stream`.
+
+```crystal
+require "html5"
+
+class LinkExtractor
+  include HTML5::StreamingHandler
+  getter links = [] of String
+
+  def on_element_open(tag : String, attrs : Array(HTML5::Attribute), namespace : String)
+    if tag == "a"
+      attrs.each do |attr|
+        links << attr.val if attr.key == "href"
+      end
+    end
+  end
+end
+
+html = %(<p>Links:</p><ul><li><a href="foo">Foo</a><li><a href="/bar/baz">BarBaz</a></ul>)
+extractor = LinkExtractor.new
+doc = HTML5.stream(html, extractor)
+
+puts extractor.links # => ["foo", "/bar/baz"]
+# doc is the complete parse tree, same as HTML5.parse would return
+```
+
+The handler receives events as they happen during parsing:
+
+| Callback                                 | When                                                       |
+| ---------------------------------------- | ---------------------------------------------------------- |
+| `on_element_open(tag, attrs, namespace)` | An element is added to the tree                            |
+| `on_element_close(tag, namespace)`       | An element is closed (popped from the open elements stack) |
+| `on_text(text)`                          | A text node is added                                       |
+| `on_comment(text)`                       | A comment node is added                                    |
+| `on_doctype(data)`                       | A doctype declaration is found                             |
+| `on_document_end(doc)`                   | Parsing is complete; receives the full `Node` tree         |
+
+All callbacks have default no-op implementations — override only the ones you need. The parser still builds the full DOM tree internally (required by the HTML5 spec for correct handling of misnested markup), but your handler receives events incrementally.
+
+`HTML5.stream` accepts an `IO` or a `String` and returns the complete document `Node`, just like `HTML5.parse`.
 
 ## Development
 
